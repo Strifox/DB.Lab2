@@ -8,5 +8,10 @@ namespace DB.Lab2
 {
     class Score
     {
+        [Key]
+        public int Id { get; set; }
+
+        public int Points { get; set; }
+
     }
 }

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace DB.Lab2
 {
     class Program
-    {
+    { 
         static void Main(string[] args)
         {
         }

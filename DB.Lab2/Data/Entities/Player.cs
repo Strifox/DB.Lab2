@@ -23,7 +23,7 @@ namespace DB.Lab2
         [MaxLength(32)]
         public string Name { get; set; } // Player name
 
-        [Column("Moves", TypeName = "int")]
+        [Column("MaxMoves", TypeName = "int")]
         public int Moves { get; set; } // Player moves (how many moves player used, NOT how many player think he will do)
 
         #endregion
@@ -43,10 +43,9 @@ namespace DB.Lab2
             string name = Console.ReadLine();
             Console.WriteLine("Type how many moves you made");
             int moves = int.Parse(Console.ReadLine());
-        
             Player p = new Player(name, moves);
 
-            context.Players.Add(p);
+            context.Players.Add(p); //Adds player to Database
             context.SaveChanges();
         }
     }

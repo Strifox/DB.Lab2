@@ -13,8 +13,25 @@ namespace DB.Lab2
         [Key]
         public int Id { get; set; }
 
-        [Column("Moves", TypeName = "int")]
-        public int Moves { get; set; }
+        [Column("MaxMoves", TypeName = "int")]
+        public int MaxMoves { get; set; }
+
+        public Map(int id, int maxMoves)
+        {
+            Id = id;
+            MaxMoves = maxMoves;
+        }
+
+        public void AddMapToDatabase(EntityContext context)
+        {
+            Console.WriteLine("Skriv in numret på Banan");
+            Id = int.Parse(Console.ReadLine()); // Sätter ID:t på banan
+            Console.WriteLine("Skriv in max antal drag på banan");
+            MaxMoves = int.Parse(Console.ReadLine()); // Sätter Max antal drag på kartan
+            Map m = new Map(Id, MaxMoves);
+            context.Maps.Add(m);
+            context.SaveChanges();
+        }
 
     }
 }

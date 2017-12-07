@@ -20,5 +20,15 @@ namespace DB.Lab2
             Console.WriteLine("Press '3' to Edit a player steps");
             Console.WriteLine("Press '4' to Search player");
         }
+
+        public void MenuSwitch()
+        {
+            string menuChoice = Console.ReadLine();
+            switch (menuChoice)
+            {
+                case '1':
+
+            }
+        }
     }
 }

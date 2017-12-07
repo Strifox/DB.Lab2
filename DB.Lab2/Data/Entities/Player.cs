@@ -29,41 +29,25 @@ namespace DB.Lab2
         #endregion
 
 
-        public Player(int id, string name, int moves)
+        public Player(string name, int moves)
         {
-            Id = id;
             Name = name;
             Moves = moves;
         }
 
-        //Adding to listbox
-        public void UpdateAddToListbox()
+       
+        public void AddPlayerToDatabase(EntityContext context)
         {
-            SqlConnection con = new SqlConnection();
-            SqlDataReader reader;
-            SqlCommand cmd;
-            string query = @"SELECT Id, Name, Moves FROM Player"; //Updates the listbox with selected columns from TABLE Player
-            cmd = new SqlCommand(query, con);
-            try
-            {
-                con.Open();
-                reader = cmd.ExecuteReader();
+          
+            Console.WriteLine("Type your Name");
+            string name = Console.ReadLine();
+            Console.WriteLine("Type how many moves you made");
+            int moves = int.Parse(Console.ReadLine());
+        
+            Player p = new Player(name, moves);
 
-                while (reader.Read())
-                {
-                    AddPlayer(reader.GetInt32(0), reader.GetString(1), reader.GetInt32(2)); //Setting parameters to AddPlayer method.
-                }
-
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e); //TODO: Change to label or something
-            }
-            finally
-            {
-                con.Close();
-            }
+            context.Players.Add(p);
+            context.SaveChanges();
         }
-
     }
 }

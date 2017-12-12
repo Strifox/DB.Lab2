@@ -9,8 +9,11 @@ namespace DB.Lab2
 {
     class Menu
     {
-        EntityContext e = new EntityContext();
-        Player p = new Player();
+        //Instances
+        private EntityContext e = new EntityContext();
+        private Player p = new Player();
+        private Map m = new Map();
+
         public void MenuDatabase()
         {
             Console.WriteLine("Welcome to Angry Birds Console");
@@ -32,7 +35,7 @@ namespace DB.Lab2
                     p.AddPlayerToDatabase(e);
                     break;
                 case "2":
-                    Map.AddMapToDatabase(e);
+                    m.AddMapToDatabase(e);
                     break;
                 case "3":
 

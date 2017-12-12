@@ -14,18 +14,17 @@ namespace DB.Lab2
         private int Id { get; set; }
 
         [Column("MaxMoves", TypeName = "int")]
-        private static int MaxMoves { get; set; }
+        private int MaxMoves { get; set; }
 
-        public Map(int maxMoves)
+        public Map()
         {
-            MaxMoves = maxMoves;
         }
 
-        public static void AddMapToDatabase(EntityContext context)
+        public void AddMapToDatabase(EntityContext context)
         {
             Console.WriteLine("Skriv in max antal drag på banan");
             MaxMoves = int.Parse(Console.ReadLine()); // Sätter Max antal drag på kartan
-            Map m = new Map(MaxMoves);
+            Map m = new Map();
             context.Maps.Add(m);
             context.SaveChanges();
         }

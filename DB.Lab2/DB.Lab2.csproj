@@ -51,6 +51,7 @@
   <ItemGroup>
     <Compile Include="Data\Entities\EntityContext.cs" />
     <Compile Include="Data\Entities\Map.cs" />
+    <Compile Include="Data\Queries.cs" />
     <Compile Include="Data\Menu.cs" />
     <Compile Include="Data\Entities\Player.cs" />
     <Compile Include="Migrations\201712071215558_InitialCreate.cs" />

@@ -14,6 +14,8 @@ namespace DB.Lab2
         //Connection string to Database
         private const string DbConnection = @"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=DB Lab2;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=True;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
 
+        static Queries query = new Queries();
+
         #region Properties To Columns
 
         [Key]
@@ -29,23 +31,32 @@ namespace DB.Lab2
         #endregion
 
 
-        public Player(string name, int moves)
-        {
-            Name = name;
-            Moves = moves;
-        }
-
-       
         public void AddPlayerToDatabase(EntityContext context)
         {
-          
             Console.WriteLine("Type your Name");
-            string name = Console.ReadLine();
+            Name = Console.ReadLine(); // Sets player name in database to this
+
             Console.WriteLine("Type how many moves you made");
-            int moves = int.Parse(Console.ReadLine());
-            Player p = new Player(name, moves);
+            Moves = int.Parse(Console.ReadLine()); // Sets player moves in database to this
+
+            Player p = new Player(); // Instanstiates player class
 
             context.Players.Add(p); //Adds player to Database
+            context.SaveChanges();
+        }
+
+        public void ChoosePlayer(EntityContext context)
+        {
+            Console.Clear();
+            Console.WriteLine("Choose a player you edit");
+            query.ChoosePlayerQuery(context);
+            context.SaveChanges();
+        }
+
+        public static void EditPlayer(EntityContext context)
+        {
+            Console.WriteLine("Type your new name");
+            query.ChoosePlayerQuery(context);
             context.SaveChanges();
         }
     }

@@ -11,24 +11,21 @@ namespace DB.Lab2
     class Map
     {
         [Key]
-        public int Id { get; set; }
+        private int Id { get; set; }
 
         [Column("MaxMoves", TypeName = "int")]
-        public int MaxMoves { get; set; }
+        private static int MaxMoves { get; set; }
 
-        public Map(int id, int maxMoves)
+        public Map(int maxMoves)
         {
-            Id = id;
             MaxMoves = maxMoves;
         }
 
-        public void AddMapToDatabase(EntityContext context)
+        public static void AddMapToDatabase(EntityContext context)
         {
-            Console.WriteLine("Skriv in numret på Banan");
-            Id = int.Parse(Console.ReadLine()); // Sätter ID:t på banan
             Console.WriteLine("Skriv in max antal drag på banan");
             MaxMoves = int.Parse(Console.ReadLine()); // Sätter Max antal drag på kartan
-            Map m = new Map(Id, MaxMoves);
+            Map m = new Map(MaxMoves);
             context.Maps.Add(m);
             context.SaveChanges();
         }

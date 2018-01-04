@@ -11,8 +11,6 @@ namespace DB.Lab2
     {
         //Instances
         private EntityContext e = new EntityContext();
-        private Player p = new Player();
-        private Map m = new Map();
 
         public void MenuDatabase()
         {
@@ -34,13 +32,13 @@ namespace DB.Lab2
             switch (menuChoice)
             {
                 case "1":
-                    p.AddPlayerToDatabase(e);
+                    Player.AddPlayerToDatabase(e);
                     break;
                 case "2":
-                    m.AddMapToDatabase(e);
+                    Map.AddMapToDatabase(e);
                     break;
                 case "3":
-                    p.EditPlayer(e);
+                    Player.EditPlayer(e);
                     break;
             }
         }

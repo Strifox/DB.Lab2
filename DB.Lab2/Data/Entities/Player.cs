@@ -16,6 +16,12 @@ namespace DB.Lab2
 
         static Queries query = new Queries();
 
+        private Player(string name)
+        {
+            Name = name;
+        }
+
+
         #region Properties To Columns
 
         [Key]
@@ -23,29 +29,26 @@ namespace DB.Lab2
 
         [Column("Name", TypeName = "nvarchar")]
         [MaxLength(32)]
-        public string Name { get; set; } // Player name
+        public static string Name { get; set; } // Player name
 
         [Column("MaxMoves", TypeName = "int")]
-        public int Moves { get; set; } // Player moves (how many moves player used, NOT how many player think he will do)
+        public static int Moves { get; set; } // Player moves (how many moves player used, NOT how many player think he will do)
 
         #endregion
 
 
-        public void AddPlayerToDatabase(EntityContext context)
+        public static void AddPlayerToDatabase(EntityContext context)
         {
+            Console.WriteLine("Add a map");
+            Map.AddMapToDatabase(context);
+
             Console.WriteLine("Type your Name");
             Name = Console.ReadLine(); // Sets player name in database to this
-
-            Console.WriteLine("Add a map");
-            Map m = new Map();
-            m.AddMapToDatabase(context);
 
             Console.WriteLine("Type how many moves you made");
             Moves = int.Parse(Console.ReadLine()); // Sets player moves in database to this
 
-            Player p = new Player(); // Instanstiates player class
-
-            context.Players.Add(p); //Adds player to Database
+            context.Players.Add(new Player(Name)); //Adds player to Database
             context.SaveChanges();
         }
         public void ChoosePlayer(EntityContext context)
@@ -55,7 +58,7 @@ namespace DB.Lab2
             context.SaveChanges();
         }
 
-        public void EditPlayer(EntityContext context)
+        public static void EditPlayer(EntityContext context)
         {
             Console.Clear();
             Console.WriteLine("Press '1' to edit Player Name");

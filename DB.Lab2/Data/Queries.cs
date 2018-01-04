@@ -35,7 +35,7 @@ namespace DB.Lab2
         {
             Console.WriteLine("Type your new name");
             var nameQuery = from name in context.Players
-                            where name.Name == Console.ReadLine()
+                            where Player.Name == Console.ReadLine()
                             select name;
 
             foreach (var player in nameQuery)

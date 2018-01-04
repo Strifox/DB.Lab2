@@ -48,15 +48,25 @@ namespace DB.Lab2
         public void ChoosePlayer(EntityContext context)
         {
             Console.Clear();
-            Console.WriteLine("Choose a player you edit");
             query.ChoosePlayerQuery(context);
             context.SaveChanges();
         }
 
-        public static void EditPlayer(EntityContext context)
+        public void EditPlayer(EntityContext context)
         {
-            Console.WriteLine("Type your new name");
-            query.ChoosePlayerQuery(context);
+            Console.Clear();
+            Console.WriteLine("Press '1' to edit Player Name");
+            Console.WriteLine("Press '2' to edit Player Score");
+            string menuChoice = Console.ReadLine();
+            switch (menuChoice)
+            {
+                case "1":
+                    query.EditPlayerNameQuery(context);
+                    break;
+                case "2":
+                    query.EditPlayerScoreQuery(context);
+                    break;
+            }
             context.SaveChanges();
         }
     }

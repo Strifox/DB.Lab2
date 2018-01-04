@@ -22,7 +22,7 @@ namespace DB.Lab2
 
             Console.WriteLine("Press '1' to Add a player");
             Console.WriteLine("Press '2' to Add a Map");
-            Console.WriteLine("Press '3' to Edit a player steps");
+            Console.WriteLine("Press '3' to Edit a player");
             Console.WriteLine("Press '4' to Search player");
         }
 
@@ -38,9 +38,8 @@ namespace DB.Lab2
                     m.AddMapToDatabase(e);
                     break;
                 case "3":
-
+                    p.EditPlayer(e);
                     break;
-                    
             }
         }
     }

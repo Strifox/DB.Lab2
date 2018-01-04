@@ -30,7 +30,21 @@ namespace DB.Lab2
 
             foreach (var player in nameQuery)
             {
+                Console.WriteLine("You updated player name to:");
                 Console.WriteLine(player);
+            }
+        }
+
+        public void EditPlayerScoreQuery(EntityContext context)
+        {
+            Console.WriteLine("Type your new score");
+            var scoreQuery = from score in context.Scores
+                             where score.Points == Int32.Parse(Console.ReadLine())
+                             select score;
+            foreach (var score in scoreQuery)
+            {
+                Console.WriteLine("You updates player score to:");
+                Console.WriteLine(score);
             }
         }
         #endregion  

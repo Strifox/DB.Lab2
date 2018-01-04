@@ -16,16 +16,12 @@ namespace DB.Lab2
         [Column("Moves", TypeName = "int")]
         public static int MaxMoves { get; set; }
 
-        Map(int maxmoves)
-        {
-            MaxMoves = maxmoves;
-        }
-
         public static void AddMapToDatabase(EntityContext context)
         {
             Console.WriteLine("Enter Max amount of moves");
-            MaxMoves = int.Parse(Console.ReadLine());
-            context.Maps.Add(new Map(MaxMoves));
+            int maxMoves = int.Parse(Console.ReadLine());
+            MaxMoves = maxMoves;
+            context.Maps.Add(new Map());
             context.SaveChanges();
         }
 

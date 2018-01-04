@@ -10,7 +10,6 @@ namespace DB.Lab2.Migrations
         public Configuration()
         {
             AutomaticMigrationsEnabled = false;
-            ContextKey = "DB.Lab2.EntityContext";
         }
 
         protected override void Seed(DB.Lab2.EntityContext context)

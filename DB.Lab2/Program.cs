@@ -8,10 +8,10 @@ namespace DB.Lab2
 {
     class Program
     {
-
         static void Main(string[] args)
         {
-
+            Menu menu = new Menu();
+            menu.MenuDatabase();
         }
     }
 }

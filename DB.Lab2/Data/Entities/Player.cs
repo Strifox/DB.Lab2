@@ -36,6 +36,10 @@ namespace DB.Lab2
             Console.WriteLine("Type your Name");
             Name = Console.ReadLine(); // Sets player name in database to this
 
+            Console.WriteLine("Add a map");
+            Map m = new Map();
+            m.AddMapToDatabase(context);
+
             Console.WriteLine("Type how many moves you made");
             Moves = int.Parse(Console.ReadLine()); // Sets player moves in database to this
 
@@ -44,11 +48,10 @@ namespace DB.Lab2
             context.Players.Add(p); //Adds player to Database
             context.SaveChanges();
         }
-
         public void ChoosePlayer(EntityContext context)
         {
             Console.Clear();
-            query.ChoosePlayerQuery(context);
+            query.ChoosePlayerQuery(context); // Method to choose a player
             context.SaveChanges();
         }
 

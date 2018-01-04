@@ -10,6 +10,16 @@ namespace DB.Lab2
     {
 
         #region Player Queries
+
+        public void ShowPlayerQuery(EntityContext context)
+        {
+            var showPlayerQuery = from show in context.Players
+                                  select show;
+            foreach (var player in showPlayerQuery)
+            {
+                Console.WriteLine(player);
+            }
+        }
         public void ChoosePlayerQuery(EntityContext context)
         {
             var chooseQuery = from choose in context.Players
@@ -34,7 +44,6 @@ namespace DB.Lab2
                 Console.WriteLine(player);
             }
         }
-
         public void EditPlayerScoreQuery(EntityContext context)
         {
             Console.WriteLine("Type your new score");
@@ -46,6 +55,11 @@ namespace DB.Lab2
                 Console.WriteLine("You updates player score to:");
                 Console.WriteLine(score);
             }
+        }
+
+        public void SearchPlayerQuery(EntityContext context)
+        {
+
         }
         #endregion  
     }

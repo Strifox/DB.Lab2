@@ -24,6 +24,8 @@ namespace DB.Lab2
             Console.WriteLine("Press '2' to Add a Map");
             Console.WriteLine("Press '3' to Edit a player");
             Console.WriteLine("Press '4' to Search player");
+
+            MenuSwitch();
         }
 
         public void MenuSwitch()

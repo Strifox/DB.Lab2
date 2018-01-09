@@ -51,7 +51,7 @@ namespace DB.Lab2
             Console.WriteLine("Type how many moves you made");
             Moves = int.Parse(Console.ReadLine()); // Sets player moves in database to this
 
-            context.Players.Add(new Player()); //Adds player to Database
+            context.Players.Add(new Player(Name,Moves)); //Adds player to Database
             context.SaveChanges();
         }
         public void ChoosePlayer(EntityContext context)

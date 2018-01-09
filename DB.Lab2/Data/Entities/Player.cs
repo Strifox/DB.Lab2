@@ -14,13 +14,8 @@ namespace DB.Lab2
         //Connection string to Database
         private const string DbConnection = @"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=DB Lab2;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=True;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
 
-        static Queries query = new Queries();
-
-        private Player(string name)
-        {
-            Name = name;
-        }
-
+        private Queries query = new Queries();
+        private Map m = new Map();
 
         #region Properties To Columns
 
@@ -29,18 +24,26 @@ namespace DB.Lab2
 
         [Column("Name", TypeName = "nvarchar")]
         [MaxLength(32)]
-        public static string Name { get; set; } // Player name
+        public string Name { get; set; } // Player name
 
-        [Column("MaxMoves", TypeName = "int")]
-        public static int Moves { get; set; } // Player moves (how many moves player used, NOT how many player think he will do)
+        [Column("Moves", TypeName = "int")]
+        public int Moves { get; set; } // Player moves (how many moves player used, NOT how many player think he will do)
 
         #endregion
-
-
-        public static void AddPlayerToDatabase(EntityContext context)
+        public Player()
         {
-            Console.WriteLine("Add a map");
-            Map.AddMapToDatabase(context);
+
+        }
+
+        public Player(string name, int moves)
+        {
+            Name = name;
+            Moves = moves;
+        }
+
+            
+        public void AddPlayerToDatabase(EntityContext context)
+        {
 
             Console.WriteLine("Type your Name");
             Name = Console.ReadLine(); // Sets player name in database to this
@@ -48,7 +51,7 @@ namespace DB.Lab2
             Console.WriteLine("Type how many moves you made");
             Moves = int.Parse(Console.ReadLine()); // Sets player moves in database to this
 
-            context.Players.Add(new Player(Name)); //Adds player to Database
+            context.Players.Add(new Player()); //Adds player to Database
             context.SaveChanges();
         }
         public void ChoosePlayer(EntityContext context)
@@ -58,13 +61,13 @@ namespace DB.Lab2
             context.SaveChanges();
         }
 
-        public static void EditPlayer(EntityContext context)
+        public void EditPlayer(EntityContext context)
         {
             Console.Clear();
             Console.WriteLine("Press '1' to edit Player Name");
             Console.WriteLine("Press '2' to edit Player Score");
             string menuChoice = Console.ReadLine();
-            switch (menuChoice)
+            switch (menuChoice) // A Switch to choose wether to edit player name or score
             {
                 case "1":
                     query.EditPlayerNameQuery(context);

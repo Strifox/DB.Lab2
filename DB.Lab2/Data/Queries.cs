@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Schema;
 
 namespace DB.Lab2
 {
     class Queries
-    {
+    { 
+        private static Player p = new Player();
 
         #region Player Queries
 
@@ -35,7 +37,7 @@ namespace DB.Lab2
         {
             Console.WriteLine("Type your new name");
             var nameQuery = from name in context.Players
-                            where Player.Name == Console.ReadLine()
+                            where p.Name == Console.ReadLine()
                             select name;
 
             foreach (var player in nameQuery)

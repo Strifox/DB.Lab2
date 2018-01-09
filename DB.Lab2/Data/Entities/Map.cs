@@ -14,13 +14,12 @@ namespace DB.Lab2
         public int Id { get; set; }
 
         [Column("Moves", TypeName = "int")]
-        public static int MaxMoves { get; set; }
+        public int Moves { get; set; }
 
-        public static void AddMapToDatabase(EntityContext context)
+        public void AddMapToDatabase(EntityContext context)
         {
             Console.WriteLine("Enter Max amount of moves");
-            int maxMoves = int.Parse(Console.ReadLine());
-            MaxMoves = maxMoves;
+            Moves = int.Parse(Console.ReadLine());
             context.Maps.Add(new Map());
             context.SaveChanges();
         }

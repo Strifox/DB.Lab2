@@ -54,6 +54,10 @@
     <Compile Include="Data\Queries.cs" />
     <Compile Include="Data\Menu.cs" />
     <Compile Include="Data\Entities\Player.cs" />
+    <Compile Include="Migrations\201801111305324_migrate.cs" />
+    <Compile Include="Migrations\201801111305324_migrate.Designer.cs">
+      <DependentUpon>201801111305324_migrate.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -62,6 +66,11 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201801111305324_migrate.resx">
+      <DependentUpon>201801111305324_migrate.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

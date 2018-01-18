@@ -2,28 +2,33 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Data.Entity;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace DB.Lab2
 {
-    class Map
+    public class Map
     {
+        public virtual IList<Score> Scores { get; set; }
+
         [Key]
         public int Id { get; set; }
 
-        [Column("Moves", TypeName = "int")]
-        public int Moves { get; set; }
+        [Column("MaxMoves", TypeName = "int")]
+        public int MaxMoves { get; set; }
 
         [Column("MapName", TypeName = "nvarchar")]
         [MaxLength(50)]
         public string MapName { get; set; }
 
-        public Map(int moves, string mapName)
+        public Map(int maxMoves, string mapName)
         {
             MapName = mapName;
-            Moves = moves;
+            MaxMoves = maxMoves;
         }
 
         public Map()
@@ -31,34 +36,59 @@ namespace DB.Lab2
 
         }
 
-        public void AddMapToDatabase(EntityContext context)
+        public void AddMapToDatabase(EntityContext context) // Adds map to database
         {
             Console.WriteLine("Enter a map name");
             MapName = Console.ReadLine();
             Console.WriteLine("Enter Max amount of moves");
-            Moves = int.Parse(Console.ReadLine());
-            context.Maps.Add(new Map(Moves, MapName));
-            context.SaveChanges();
+            MaxMoves = int.Parse(Console.ReadLine());
+            context.Maps.Add(new Map(MaxMoves, MapName));
+            // context.SaveChanges();
             Console.WriteLine($"{MapName} added to database");
         }
 
-        public void IsMapAdded(EntityContext context)
+
+        public void IsMapAdded(EntityContext context)  //Checks if map is added before adding a player
         {
-            if (!context.Maps.Any())
-                Console.WriteLine("You need to add an map");
-
-            AddMapToDatabase(context);
-
-            var mapQuery = from map in context.Maps
-                           select map.MapName;
-
-            foreach (var mapName in mapQuery)
+            if (context.Maps.Any())
             {
-                if (mapName == MapName)
-                    Console.WriteLine("The map name already exists");
-                else
-                   AddMapToDatabase(context);
+                Console.WriteLine("You must choose a map before adding a player. Enter Map name:");
+                Query.ShowMapQuery(context);
+                string mapName = Console.ReadLine();
+                ChooseMap(context, mapName);
             }
+            else if (!context.Maps.Any())
+            {
+                Console.WriteLine("There is no map added, you must first add a map");
+                AddMapToDatabase(context);
+            }
+            //var mapQuery = from map in context.Maps
+            //               select map.MapName;
+            //foreach (var map in mapQuery)
+            //{
+            //if (mapName == MapName)
+            //    Console.WriteLine("The map name already exists");
+            //else
+            //    AddMapToDatabase(context);
+            //}
+            //
+            //
+            //
+            //
+            context.SaveChanges();
+        }
+
+
+        public int ChooseMap(EntityContext context, string mapName)
+        {
+            //1. Skriva ut kartor
+            //2. Hämta input från consol
+            //3. Returnera id för vald karta
+            if (MapName == mapName)
+                Console.WriteLine("Invalid map");
+            else
+                Query.ChooseMapQuery(context, Id);
+            return Id;
         }
     }
 }

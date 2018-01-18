@@ -17,7 +17,7 @@ namespace DB.Lab2
         public void MenuDatabase()
         {
             Console.WriteLine("Welcome to Angry Birds Console");
-            Thread.Sleep(2000);
+            Thread.Sleep(1000);
             Console.Clear();
 
             Console.WriteLine("Press '1' to Add a player");
@@ -34,7 +34,6 @@ namespace DB.Lab2
             switch (menuChoice)
             {
                 case "1":
-                    m.IsMapAdded(e);
                     p.AddPlayerToDatabase(e);
                     break;
                 case "2":

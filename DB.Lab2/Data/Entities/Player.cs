@@ -5,26 +5,26 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace DB.Lab2
 {
-    class Player
+    public class Player
     {
-        //Connection string to Database
-        private const string DbConnection = @"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=DB Lab2;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=True;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
 
-        private Queries query = new Queries();
-        private Map m = new Map();
+        public virtual IList<Score> Scores { get; set; }
 
         #region Properties To Columns
 
         [Key]
         public int Id { get; set; } // Player ID (Primary key)
-
+        
         [Column("Name", TypeName = "nvarchar")]
         [MaxLength(32)]
         public string Name { get; set; } // Player name
+
+        public IList<Map> PlayedMaps { get; set; }
 
         [Column("Moves", TypeName = "int")]
         public int Moves { get; set; } // Player moves (how many moves player used, NOT how many player think he will do)
@@ -44,6 +44,8 @@ namespace DB.Lab2
             
         public void AddPlayerToDatabase(EntityContext context)
         {
+            Map m = new Map();
+            m.IsMapAdded(context);
 
             Console.WriteLine("Type your Name");
             Name = Console.ReadLine(); // Sets player name in database to this
@@ -51,13 +53,13 @@ namespace DB.Lab2
             Console.WriteLine("Type how many moves you made");
             Moves = int.Parse(Console.ReadLine()); // Sets player moves in database to this
 
-            context.Players.Add(new Player(Name,Moves)); //Adds player to Database
+            context.Players.Add(this); //Adds player to Database
             context.SaveChanges();
         }
         public void ChoosePlayer(EntityContext context)
         {
             Console.Clear();
-            query.ChoosePlayerQuery(context); // Method to choose a player
+            Query.ChoosePlayerQuery(context); // Method to choose a player
             context.SaveChanges();
         }
 
@@ -70,10 +72,10 @@ namespace DB.Lab2
             switch (menuChoice) // A Switch to choose wether to edit player name or score
             {
                 case "1":
-                    query.EditPlayerNameQuery(context);
+                    Query.EditPlayerNameQuery(context);
                     break;
                 case "2":
-                    query.EditPlayerScoreQuery(context);
+                    Query.EditPlayerScoreQuery(context);
                     break;
             }
             context.SaveChanges();

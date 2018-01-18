@@ -10,6 +10,7 @@ namespace DB.Lab2
     public class EntityContext : DbContext
     {
         // Connection string to DB
+        // Create a database called "DB Labb2" if you wanna skip changing the connection string
         private const string DbConnection = @"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=DB Labb2;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=True;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
 
         public EntityContext() : base(DbConnection) { }

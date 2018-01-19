@@ -47,7 +47,7 @@ namespace DB.Lab2
             Map m = new Map();
             m.IsMapAdded(context);
 
-            Console.WriteLine("Type your Name");
+            Console.WriteLine("Type your Name (Case sensitive)");
             Name = Console.ReadLine(); // Sets player name in database to this
             if (!Query.DoesPlayerExist(context, Name))
             {

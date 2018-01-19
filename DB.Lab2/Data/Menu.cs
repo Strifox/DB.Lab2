@@ -20,29 +20,39 @@ namespace DB.Lab2
             Thread.Sleep(1000);
             Console.Clear();
 
-            Console.WriteLine("Press '1' to Add a player");
-            Console.WriteLine("Press '2' to Add a Map");
-            Console.WriteLine("Press '3' to Edit a player");
-            Console.WriteLine("Press '4' to Search player");
-
             MenuSwitch();
         }
 
         public void MenuSwitch()
         {
-            string menuChoice = Console.ReadLine();
-            switch (menuChoice)
+            string menuChoice;
+            do
             {
-                case "1":
-                    p.AddPlayerToDatabase(e);
-                    break;
-                case "2":
-                    m.AddMapToDatabase(e);
-                    break;
-                case "3":
-                    p.EditPlayer(e);
-                    break;
-            }
+                Console.WriteLine("Press '1' to Add a player");
+                Console.WriteLine("Press '2' to Add a Map");
+                Console.WriteLine("Press '3' to Edit a player");
+                Console.WriteLine("Press '4' to Search player");
+                Console.WriteLine("Press '5' to Exit game");
+
+                menuChoice = Console.ReadLine();
+                switch (menuChoice)
+                {
+                    case "1":
+                        p.AddPlayerToDatabase(e);
+                        break;
+                    case "2":
+                        m.AddMapToDatabase(e);
+                        break;
+                    case "3":
+                        p.EditPlayer(e);
+                        break;
+                    case "5":
+                        Console.WriteLine("Thanks for playing..");
+                        Thread.Sleep(2000);
+                        break;
+                }
+
+            } while (menuChoice != "5");
 
         }
     }

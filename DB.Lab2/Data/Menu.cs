@@ -23,6 +23,7 @@ namespace DB.Lab2
             MenuSwitch();
         }
 
+
         public void MenuSwitch()
         {
             string menuChoice;

@@ -49,12 +49,17 @@ namespace DB.Lab2
 
             Console.WriteLine("Type your Name");
             Name = Console.ReadLine(); // Sets player name in database to this
+            if (!Query.DoesPlayerExist(context, Name))
+            {
+                Console.WriteLine("Type how many moves you made");
+                Moves = int.Parse(Console.ReadLine()); // Sets player moves in database to this
 
-            Console.WriteLine("Type how many moves you made");
-            Moves = int.Parse(Console.ReadLine()); // Sets player moves in database to this
-
-            context.Players.Add(this); //Adds player to Database
-            context.SaveChanges();
+                context.Players.Add(this); //Adds player to Database
+                context.SaveChanges();
+            }
+            else
+                Console.WriteLine("Player already exists..");
+            
         }
         public void ChoosePlayer(EntityContext context)
         {

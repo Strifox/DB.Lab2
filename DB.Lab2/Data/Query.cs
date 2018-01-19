@@ -16,11 +16,28 @@ namespace DB.Lab2
         {
             var showPlayerQuery = from show in context.Players
                                   select show;
+
             foreach (var player in showPlayerQuery)
             {
                 Console.WriteLine(player);
             }
         }
+
+        public static bool DoesPlayerExist(EntityContext context, string Name)
+        {
+            var players = from player in context.Players
+                         select player;
+
+            foreach (var player in players)
+            {
+                if (player.Name == Name)
+                    return true;
+                else
+                    return false;
+            }
+            return false;
+        }
+
         public static void ChoosePlayerQuery(EntityContext context)
         {
             var chooseQuery = from choose in context.Players

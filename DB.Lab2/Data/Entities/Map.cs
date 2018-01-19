@@ -84,7 +84,7 @@ namespace DB.Lab2
             //1. Skriva ut kartor
             //2. Hämta input från consol
             //3. Returnera id för vald karta
-            if (MapName == mapName)
+            if (MapName != mapName)
                 Console.WriteLine("Invalid map");
             else
                 Query.ChooseMapQuery(context, Id);

@@ -61,11 +61,11 @@ namespace DB.Lab2
                 Console.WriteLine("Player already exists..");
             
         }
-        public void ChoosePlayer(EntityContext context)
+        public int ChoosePlayer(EntityContext context)
         {
             Console.Clear();
-            Query.ChoosePlayerQuery(context); // Method to choose a player
-            context.SaveChanges();
+            Query.ChoosePlayerQuery(context, Id); // Method to choose a player
+            return Id;
         }
 
         public void EditPlayer(EntityContext context)
@@ -77,6 +77,7 @@ namespace DB.Lab2
             switch (menuChoice) // A Switch to choose wether to edit player name or score
             {
                 case "1":
+                    ChoosePlayer(context);
                     Query.EditPlayerNameQuery(context);
                     break;
                 case "2":

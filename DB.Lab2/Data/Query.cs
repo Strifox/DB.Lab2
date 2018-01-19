@@ -9,7 +9,7 @@ namespace DB.Lab2
 {
     public class Query
     {
-
+        //TODO: Fixa edit player query
         #region Player Query
 
         public static void ShowPlayerQuery(EntityContext context)
@@ -41,7 +41,7 @@ namespace DB.Lab2
         public static void ChoosePlayerQuery(EntityContext context)
         {
             var chooseQuery = from choose in context.Players
-                              where choose.Id == Int32.Parse(Console.ReadLine())
+                              where choose.Id == playerId
                               select choose;
 
             foreach (var player in chooseQuery)
@@ -49,6 +49,32 @@ namespace DB.Lab2
                 Console.WriteLine(player);
             }
         }
+        public static void EditPlayerNameQuery(EntityContext context)
+        {
+           
+            Console.WriteLine("Type your new name");
+            var nameQuery = from p in context.Players
+                            where p.Name == Console.ReadLine()
+                            select p.Name;
+
+            Console.WriteLine($"You updated player name to: {nameQuery}");
+        }
+        public static void EditPlayerScoreQuery(EntityContext context)
+        {
+            Console.WriteLine("Type your new score");
+            var scoreQuery = from score in context.Scores
+                             where score.PlayerScore == Int32.Parse(Console.ReadLine())
+                             select score;
+            foreach (var score in scoreQuery)
+            {
+                Console.WriteLine("You updates player score to:");
+                Console.WriteLine(score);
+            }
+        }
+
+        #endregion
+
+        #region Map Query
 
         public static void ShowMapQuery(EntityContext context)
         {
@@ -70,32 +96,7 @@ namespace DB.Lab2
                 Console.WriteLine("You chose" + map + "\n");
             }
         }
-        public static void EditPlayerNameQuery(EntityContext context)
-        {
-            Console.WriteLine("Type your new name");
-            var nameQuery = from p in context.Players
-                            where p.Name == Console.ReadLine()
-                            select p.Name;
 
-            Console.WriteLine($"You updated player name to: {nameQuery}");
-        }
-        public static void EditPlayerScoreQuery(EntityContext context)
-        {
-            Console.WriteLine("Type your new score");
-            var scoreQuery = from score in context.Scores
-                             where score.PlayerScore == Int32.Parse(Console.ReadLine())
-                             select score;
-            foreach (var score in scoreQuery)
-            {
-                Console.WriteLine("You updates player score to:");
-                Console.WriteLine(score);
-            }
-        }
-
-        public void SearchPlayerQuery(EntityContext context)
-        {
-
-        }
-        #endregion  
+        #endregion
     }
 }

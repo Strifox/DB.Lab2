@@ -51,6 +51,10 @@ namespace DB.Lab2
                         Console.WriteLine("Thanks for playing..");
                         Thread.Sleep(2000);
                         break;
+                    default:
+                        Console.WriteLine("Wrong input, please choose a valid option..");
+                        Thread.Sleep(2000);
+                        break;
                 }
 
             } while (menuChoice != "5");

@@ -23,6 +23,21 @@ namespace DB.Lab2
             }
         }
 
+        public static bool DoesMapExist(EntityContext context, string Name)
+        {
+            var maps = from map in context.Maps
+                          select map;
+
+            foreach (var map in maps)
+            {
+                if (map.MapName == Name)
+                    return true;
+                else
+                    return false;
+            }
+            return false;
+        }
+
         public static bool DoesPlayerExist(EntityContext context, string Name)
         {
             var players = from player in context.Players

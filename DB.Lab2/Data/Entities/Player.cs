@@ -44,21 +44,43 @@ namespace DB.Lab2
             
         public void AddPlayerToDatabase(EntityContext context)
         {
+            bool correctlyEntered = true;
             Map m = new Map();
             m.IsMapAdded(context);
 
             Console.WriteLine("Type your Name (Case sensitive)");
             Name = Console.ReadLine(); // Sets player name in database to this
+
+
             if (!Query.DoesPlayerExist(context, Name))
             {
-                Console.WriteLine("Type how many moves you made");
-                Moves = int.Parse(Console.ReadLine()); // Sets player moves in database to this
+                do
+                {
+                    Console.WriteLine("Type how many moves you made");
+                    Moves = int.Parse(Console.ReadLine()); // Sets player moves in database to this
+                    if (Moves <= m.MaxMoves)
+                    {
+                        context.Players.Add(this); //Adds player to Database
+                        context.SaveChanges();
+                        Console.WriteLine("Database added");
+                        correctlyEntered = true;
+                    }
+                    else
+                    {
+                        Console.WriteLine($"You can't do more steps than max.\n(max moves: {m.MaxMoves} )");
+                        Console.WriteLine("\nPress enter to continue..");
+                        Console.ReadKey();
+                        correctlyEntered = false;
+                    }
 
-                context.Players.Add(this); //Adds player to Database
-                context.SaveChanges();
+                } while (!correctlyEntered);
             }
             else
+            {
                 Console.WriteLine("Player already exists..");
+                Console.WriteLine("\nPress enter to continue..");
+                Console.ReadKey();
+            }
             
         }
         public int ChoosePlayer(EntityContext context)

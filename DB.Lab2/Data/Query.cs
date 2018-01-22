@@ -15,7 +15,7 @@ namespace DB.Lab2
         public static void ShowPlayerQuery(EntityContext context)
         {
             var showPlayerQuery = from show in context.Players
-                                  select show;
+                                  select show.Name;
 
             foreach (var player in showPlayerQuery)
             {
@@ -38,17 +38,17 @@ namespace DB.Lab2
             return false;
         }
 
-        public static void ChoosePlayerQuery(EntityContext context)
-        {
-            var chooseQuery = from choose in context.Players
-                              where choose.Id == playerId
-                              select choose;
+        //public static void ChoosePlayerQuery(EntityContext context)
+        //{
+        //    var chooseQuery = from choose in context.Players
+        //                      where choose.Id == playerId
+        //                      select choose;
 
-            foreach (var player in chooseQuery)
-            {
-                Console.WriteLine(player);
-            }
-        }
+        //    foreach (var player in chooseQuery)
+        //    {
+        //        Console.WriteLine(player);
+        //    }
+        //}
         public static void EditPlayerNameQuery(EntityContext context)
         {
            

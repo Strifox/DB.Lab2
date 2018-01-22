@@ -18,5 +18,10 @@ namespace DB.Lab2
 
         [Column("Player_Score", TypeName = "int")]
         public int PlayerScore { get; set; }
+
+
+
+        
+
     }
 }

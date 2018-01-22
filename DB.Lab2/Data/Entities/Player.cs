@@ -64,7 +64,7 @@ namespace DB.Lab2
         public int ChoosePlayer(EntityContext context)
         {
             Console.Clear();
-            Query.ChoosePlayerQuery(context, Id); // Method to choose a player
+            //Query.ChoosePlayerQuery(context, Id); // Method to choose a player
             return Id;
         }
 

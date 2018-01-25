@@ -23,14 +23,14 @@ namespace DB.Lab2
             }
         }
 
-        public static bool DoesMapExist(EntityContext context, string Name)
+        public static bool DoesMapExist(EntityContext context, int Id)
         {
             var maps = from map in context.Maps
                           select map;
 
             foreach (var map in maps)
             {
-                if (map.MapName == Name)
+                if (map.Id == Id)
                     return true;
                 else
                     return false;
@@ -94,27 +94,16 @@ namespace DB.Lab2
         public static void ShowMapQuery(EntityContext context)
         {
             var showMapQuery = from show in context.Maps
-                               select show.MapName;
+                               select new
+                               {
+                                   id = show.Id,
+                                   name = show.MapName
+                               };
 
             foreach (var map in showMapQuery)
             {
-                Console.WriteLine(map);
+                Console.WriteLine($"Map Id: {map.id}, Map Name: {map.name}");
             }
-        }
-        public static void ChooseMapQuery(EntityContext context, string mapName)
-        {
-            string s = null;
-            var chooseQuery = from map in context.Maps
-                              where map.MapName == mapName
-                              select map.MapName;
-            foreach (var X in chooseQuery)
-            {
-                Console.WriteLine("You chose: " + X + "\n");
-            }
-            
-            Console.WriteLine("Press enter to continue");
-            Console.ReadKey();
-            
         }
 
         #endregion

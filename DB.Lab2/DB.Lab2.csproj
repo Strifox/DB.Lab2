@@ -51,6 +51,8 @@
   <ItemGroup>
     <Compile Include="Data\Entities\EntityContext.cs" />
     <Compile Include="Data\Entities\Map.cs" />
+    <Compile Include="Data\MapContext.cs" />
+    <Compile Include="Data\PlayerContext.cs" />
     <Compile Include="Data\Query.cs" />
     <Compile Include="Data\Menu.cs" />
     <Compile Include="Data\Entities\Player.cs" />

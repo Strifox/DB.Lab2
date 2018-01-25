@@ -1,50 +1,24 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Data.Entity;
 using System.Linq;
-using System.Linq.Expressions;
 using System.Text;
-using System.Threading;
 using System.Threading.Tasks;
 
 namespace DB.Lab2
 {
-    public class Map
+    class MapContext
     {
-        public virtual IList<Score> Scores { get; set; }
 
-        [Key]
-        public int Id { get; set; }
-
-        [Column("MaxMoves", TypeName = "int")]
-        public int MaxMoves { get; set; }
-
-        [Column("MapName", TypeName = "nvarchar")]
-        [MaxLength(50)]
-        public string MapName { get; set; }
-
-        public Map(int maxMoves, string mapName)
-        {
-            MapName = mapName;
-            MaxMoves = maxMoves;
-        }
-
-        public Map()
-        {
-
-        }
-
+        static Map map = new Map();
         public void AddMapToDatabase(EntityContext context) // Adds map to database
         {
             Console.WriteLine("Enter a map name");
-            MapName = Console.ReadLine();
+            map.MapName = Console.ReadLine();
             Console.WriteLine("Enter Max amount of moves");
-            MaxMoves = int.Parse(Console.ReadLine());
-            context.Maps.Add(new Map(MaxMoves, MapName));
+            map.MaxMoves = int.Parse(Console.ReadLine());
+            context.Maps.Add(new Map(map.MaxMoves, map.MapName));
             // context.SaveChanges();
-            Console.WriteLine($"{MapName} added to database");
+            Console.WriteLine($"{map.MapName} added to database");
         }
 
 
@@ -75,7 +49,7 @@ namespace DB.Lab2
             //
             //
             //
-            Console.WriteLine($"Map name: {MapName}\nMap MaxMoves: {MaxMoves}\nMap Id: {Id}");
+            Console.WriteLine($"Map name: {map.MapName}\nMap MaxMoves: {map.MaxMoves}\nMap Id: {map.Id}");
             Console.ReadKey();
             context.SaveChanges();
         }
@@ -89,10 +63,35 @@ namespace DB.Lab2
             if (!Query.DoesMapExist(context, mapId))
                 Console.WriteLine("Invalid map");
             else
-                Query.ChooseMapQuery(context, mapId);
+                GetMapById(context, mapId);
 
-            Console.WriteLine($"Map name: {MapName}\nMap MaxMoves: {MaxMoves}\nMap Id: {Id}");
-            return Id;
+            Console.WriteLine($"Map name: {map.MapName}\nMap MaxMoves: {map.MaxMoves}\nMap Id: {map.Id}");
+            return map.Id;
+        }
+
+        public static Map GetMapById(EntityContext context, int mapId)
+        {
+            // Search for map in context
+            var chooseQuery = from map in context.Maps
+                              where map.Id == mapId
+                              select new
+                              {
+                                  id = map.Id,
+                                  name = map.MapName
+                              };
+            foreach (var map in chooseQuery)
+            {
+                Console.WriteLine($"You chose: {map.id}, Map name: {map.name}\n");
+                Console.ReadKey();
+                // If map exists, return map.
+                if (map.id == mapId)
+                    return new Map(map.id, map.name);
+                // Else return null.
+                else
+                    return null;
+            }
+            return null;
+
         }
     }
 }

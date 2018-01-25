@@ -8,17 +8,16 @@ namespace DB.Lab2
 {
     class PlayerContext
     {
-        static  Map map = new Map();
-        static Player player = new Player();
+        static Map map;
+        static Player player;
 
         public static void AddPlayerToDatabase(EntityContext context)
         {
-            bool correctlyEntered = true;
-            MapContext.IsMapAdded(context);
 
+            bool correctlyEntered;
             Console.WriteLine("Type your Name (Case sensitive)");
             player.Name = Console.ReadLine(); // Sets player name in database to this
-            
+
             if (!Query.DoesPlayerExist(context, player.Name))
             {
                 do
@@ -28,7 +27,7 @@ namespace DB.Lab2
                     player.Moves = int.Parse(Console.ReadLine()); // Sets player moves in database to this
                     if (player.Moves <= map.MaxMoves)
                     {
-                        context.Players.Add(new Player(player.Name, player.Moves)); //Adds player to Database
+                        context.Players.Add(new Player(player.Name)); //Adds player to Database
                         context.SaveChanges();
                         Console.WriteLine("Database added");
                         correctlyEntered = true;

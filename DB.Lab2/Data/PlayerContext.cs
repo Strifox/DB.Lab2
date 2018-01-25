@@ -14,12 +14,11 @@ namespace DB.Lab2
         public static void AddPlayerToDatabase(EntityContext context)
         {
             bool correctlyEntered = true;
-            map.IsMapAdded(context);
+            MapContext.IsMapAdded(context);
 
             Console.WriteLine("Type your Name (Case sensitive)");
             player.Name = Console.ReadLine(); // Sets player name in database to this
-
-
+            
             if (!Query.DoesPlayerExist(context, player.Name))
             {
                 do

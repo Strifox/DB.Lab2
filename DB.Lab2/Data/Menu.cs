@@ -44,7 +44,7 @@ namespace DB.Lab2
                         PlayerContext.AddPlayerToDatabase(e);
                         break;
                     case "2":
-                        m.AddMapToDatabase(e);
+                        MapContext.AddMapToDatabase(e);
                         break;
                     case "3":
                         //p.EditPlayer(e);

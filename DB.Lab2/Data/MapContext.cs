@@ -6,11 +6,12 @@ using System.Threading.Tasks;
 
 namespace DB.Lab2
 {
-    class MapContext
+    public class MapContext
     {
 
         static Map map = new Map();
-        public void AddMapToDatabase(EntityContext context) // Adds map to database
+        static Map s = null;
+        public static void AddMapToDatabase(EntityContext context) // Adds map to database
         {
             Console.WriteLine("Enter a map name");
             map.MapName = Console.ReadLine();
@@ -22,7 +23,7 @@ namespace DB.Lab2
         }
 
 
-        public void IsMapAdded(EntityContext context)  //Checks if map is added before adding a player
+        public static Map IsMapAdded(EntityContext context)  //Checks if map is added before adding a player
         {
             if (context.Maps.Any())
             {
@@ -49,13 +50,12 @@ namespace DB.Lab2
             //
             //
             //
-            Console.WriteLine($"Map name: {map.MapName}\nMap MaxMoves: {map.MaxMoves}\nMap Id: {map.Id}");
-            Console.ReadKey();
             context.SaveChanges();
+            return s;
         }
 
 
-        public int ChooseMap(EntityContext context, int mapId)
+        public static Map ChooseMap(EntityContext context, int mapId)
         {
             //1. Skriva ut kartor
             //2. Hämta input från consol
@@ -63,10 +63,9 @@ namespace DB.Lab2
             if (!Query.DoesMapExist(context, mapId))
                 Console.WriteLine("Invalid map");
             else
-                GetMapById(context, mapId);
+                s = MapContext.GetMapById(context, mapId);
 
-            Console.WriteLine($"Map name: {map.MapName}\nMap MaxMoves: {map.MaxMoves}\nMap Id: {map.Id}");
-            return map.Id;
+            return s;
         }
 
         public static Map GetMapById(EntityContext context, int mapId)
@@ -76,21 +75,6 @@ namespace DB.Lab2
                               where map.Id == mapId
                               select map).FirstOrDefault();
             return chooseQuery;
-            //foreach (var map in chooseQuery)
-            //{
-            //    Console.WriteLine($"You chose: {map.id}, Map name: {map.name}\n");
-            //    // If map exists, return map.
-            //    if (map.id == mapId)
-            //        return new Map(map.id, map.name);
-            //    // Else return null.
-            //    else
-            //        return null;
-            //}
-            //if (map.Id == mapId)
-            //    return map;
-            //else
-            //    return null;
-
         }
     }
 }

@@ -41,13 +41,13 @@ namespace DB.Lab2
                 switch (menuChoice)
                 {
                     case "1":
-                        p.AddPlayerToDatabase(e);
+                        PlayerContext.AddPlayerToDatabase(e);
                         break;
                     case "2":
                         m.AddMapToDatabase(e);
                         break;
                     case "3":
-                        p.EditPlayer(e);
+                        //p.EditPlayer(e);
                         break;
                     case "4":
                         Console.Clear();

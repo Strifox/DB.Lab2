@@ -36,6 +36,8 @@ namespace DB.Lab2
 
         }
 
+            Map s = null;
+
         public void AddMapToDatabase(EntityContext context) // Adds map to database
         {
             Console.WriteLine("Enter a map name");
@@ -75,13 +77,11 @@ namespace DB.Lab2
             //
             //
             //
-            Console.WriteLine($"Map name: {MapName}\nMap MaxMoves: {MaxMoves}\nMap Id: {Id}");
-            Console.ReadKey();
             context.SaveChanges();
         }
 
 
-        public int ChooseMap(EntityContext context, int mapId)
+        public Map ChooseMap(EntityContext context, int mapId)
         {
             //1. Skriva ut kartor
             //2. Hämta input från consol
@@ -89,10 +89,9 @@ namespace DB.Lab2
             if (!Query.DoesMapExist(context, mapId))
                 Console.WriteLine("Invalid map");
             else
-                Query.ChooseMapQuery(context, mapId);
-
-            Console.WriteLine($"Map name: {MapName}\nMap MaxMoves: {MaxMoves}\nMap Id: {Id}");
-            return Id;
+                s = MapContext.GetMapById(context, mapId);
+            
+            return s;
         }
     }
 }

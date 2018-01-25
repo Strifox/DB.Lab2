@@ -72,25 +72,24 @@ namespace DB.Lab2
         public static Map GetMapById(EntityContext context, int mapId)
         {
             // Search for map in context
-            var chooseQuery = from map in context.Maps
+            var chooseQuery = (from map in context.Maps
                               where map.Id == mapId
-                              select new
-                              {
-                                  id = map.Id,
-                                  name = map.MapName
-                              };
-            foreach (var map in chooseQuery)
-            {
-                Console.WriteLine($"You chose: {map.id}, Map name: {map.name}\n");
-                Console.ReadKey();
-                // If map exists, return map.
-                if (map.id == mapId)
-                    return new Map(map.id, map.name);
-                // Else return null.
-                else
-                    return null;
-            }
-            return null;
+                              select map).FirstOrDefault();
+            return chooseQuery;
+            //foreach (var map in chooseQuery)
+            //{
+            //    Console.WriteLine($"You chose: {map.id}, Map name: {map.name}\n");
+            //    // If map exists, return map.
+            //    if (map.id == mapId)
+            //        return new Map(map.id, map.name);
+            //    // Else return null.
+            //    else
+            //        return null;
+            //}
+            //if (map.Id == mapId)
+            //    return map;
+            //else
+            //    return null;
 
         }
     }

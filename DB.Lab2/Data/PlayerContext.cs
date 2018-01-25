@@ -8,8 +8,9 @@ namespace DB.Lab2
 {
     class PlayerContext
     {
-          static  Map map = new Map();
-           static Player player = new Player();
+        static  Map map = new Map();
+        static Player player = new Player();
+
         public static void AddPlayerToDatabase(EntityContext context)
         {
             bool correctlyEntered = true;

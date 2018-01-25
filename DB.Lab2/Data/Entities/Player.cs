@@ -56,6 +56,7 @@ namespace DB.Lab2
             {
                 do
                 {
+                    Console.WriteLine($"Max moves: {m.MaxMoves}");
                     Console.WriteLine("Type how many moves you made");
                     Moves = int.Parse(Console.ReadLine()); // Sets player moves in database to this
                     if (Moves <= m.MaxMoves)

@@ -101,15 +101,20 @@ namespace DB.Lab2
                 Console.WriteLine(map);
             }
         }
-        public static void ChooseMapQuery(EntityContext context, int mapId)
+        public static void ChooseMapQuery(EntityContext context, string mapName)
         {
-            var chooseQuery = from map in context.Players
-                              where map.Id == mapId
-                              select map;
-            foreach (var map in chooseQuery)
+            string s = null;
+            var chooseQuery = from map in context.Maps
+                              where map.MapName == mapName
+                              select map.MapName;
+            foreach (var X in chooseQuery)
             {
-                Console.WriteLine("You chose" + map + "\n");
+                Console.WriteLine("You chose: " + X + "\n");
             }
+            
+            Console.WriteLine("Press enter to continue");
+            Console.ReadKey();
+            
         }
 
         #endregion

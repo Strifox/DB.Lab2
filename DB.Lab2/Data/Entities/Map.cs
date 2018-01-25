@@ -75,6 +75,8 @@ namespace DB.Lab2
             //
             //
             //
+            Console.WriteLine($"Map name: {MapName}\nMap MaxMoves: {MaxMoves}\nMap Id: {Id}");
+            Console.ReadKey();
             context.SaveChanges();
         }
 
@@ -84,10 +86,12 @@ namespace DB.Lab2
             //1. Skriva ut kartor
             //2. Hämta input från consol
             //3. Returnera id för vald karta
-            if (MapName != mapName)
+            if (!Query.DoesMapExist(context, mapName))
                 Console.WriteLine("Invalid map");
             else
-                Query.ChooseMapQuery(context, Id);
+                Query.ChooseMapQuery(context, mapName);
+
+            Console.WriteLine($"Map name: {MapName}\nMap MaxMoves: {MaxMoves}\nMap Id: {Id}");
             return Id;
         }
     }

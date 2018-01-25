@@ -35,10 +35,10 @@ namespace DB.Lab2
 
         }
 
-        public Player(string name)
+        public Player(string name, int moves)
         {
             Name = name;
-            
+            Moves = moves;
         }
         
     }

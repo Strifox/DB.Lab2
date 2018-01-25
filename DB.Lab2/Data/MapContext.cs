@@ -9,8 +9,8 @@ namespace DB.Lab2
     public class MapContext
     {
 
-        static Map map;
-
+        static Map map = new Map();
+        static Map s = null;
         public static void AddMapToDatabase(EntityContext context) // Adds map to database
         {
             Console.WriteLine("Enter a map name");
@@ -21,6 +21,7 @@ namespace DB.Lab2
             // context.SaveChanges();
             Console.WriteLine($"{map.MapName} added to database");
         }
+
 
         public static Map IsMapAdded(EntityContext context)  //Checks if map is added before adding a player
         {
@@ -36,11 +37,25 @@ namespace DB.Lab2
                 Console.WriteLine("There is no map added, you must first add a map");
                 AddMapToDatabase(context);
             }
+            //var mapQuery = from map in context.Maps
+            //               select map.MapName;
+            //foreach (var map in mapQuery)
+            //{
+            //if (mapName == MapName)
+            //    Console.WriteLine("The map name already exists");
+            //else
+            //    AddMapToDatabase(context);
+            //}
+            //
+            //
+            //
+            //
             context.SaveChanges();
-            return map;
+            return s;
         }
 
-        public static Map ChooseMap(EntityContext context, int mapId)  // Method returns a chosen map by id
+
+        public static Map ChooseMap(EntityContext context, int mapId)
         {
             //1. Skriva ut kartor
             //2. Hämta input från consol
@@ -48,12 +63,12 @@ namespace DB.Lab2
             if (!Query.DoesMapExist(context, mapId))
                 Console.WriteLine("Invalid map");
             else
-                map = GetMapById(context, mapId);
+                s = MapContext.GetMapById(context, mapId);
 
-            return map;
+            return s;
         }
-       
-        public static Map GetMapById(EntityContext context, int mapId)  // Gets a map by ID
+
+        public static Map GetMapById(EntityContext context, int mapId)
         {
             // Search for map in context
             var chooseQuery = (from map in context.Maps

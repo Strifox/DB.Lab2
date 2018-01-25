@@ -36,7 +36,6 @@ namespace DB.Lab2
                 .HasColumnType("nvarchar")
                 .HasMaxLength(50);
             playerConfig.Property(p => p.Moves)
-                .IsOptional()
                 .HasColumnName("Moves")
                 .HasColumnType("int");
 

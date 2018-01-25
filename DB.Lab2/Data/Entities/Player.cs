@@ -40,8 +40,6 @@ namespace DB.Lab2
             Name = name;
             Moves = moves;
         }
-
-            
         
     }
 }

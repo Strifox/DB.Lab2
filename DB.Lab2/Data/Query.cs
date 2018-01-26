@@ -20,7 +20,6 @@ namespace DB.Lab2
                                       id = show.Id,
                                       name = show.Name
                                   };
-
             foreach (var player in showPlayerQuery)
             {
                 Console.WriteLine($"Id: {player.id}, Name: {player.name}");

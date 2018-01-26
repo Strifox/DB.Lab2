@@ -28,7 +28,6 @@ namespace DB.Lab2
             #region API
 
             #region Player
-
             playerConfig.ToTable("Players");
             playerConfig.HasKey(p => p.Id);
             playerConfig.Property(p => p.Name)
@@ -38,10 +37,9 @@ namespace DB.Lab2
             playerConfig.Property(p => p.Moves)
                 .HasColumnName("Moves")
                 .HasColumnType("int");
-
             #endregion
-            #region Map
 
+            #region Map
             mapConfig.ToTable("Maps");
             mapConfig.HasKey(m => m.Id);
             mapConfig.Property(m => m.MapName)
@@ -51,22 +49,18 @@ namespace DB.Lab2
             mapConfig.Property(m => m.MaxMoves)
                 .HasColumnName("Max_Moves")
                 .HasColumnType("int");
-
             #endregion
+
             #region Score
-
             scoreConfig.ToTable("Scores");
-            scoreConfig.HasKey(s => s.Id);
-
+            scoreConfig.HasKey(s => s.Id); 
             scoreConfig.HasRequired(s => s.Map)
                 .WithMany(m => m.Scores);
             scoreConfig.HasRequired(s => s.Player)
                 .WithMany(p => p.Scores);
-           
             scoreConfig.Property(s => s.PlayerScore)
                 .HasColumnName("Player_Score")
                 .HasColumnType("int");
-
             #endregion
 
             #endregion

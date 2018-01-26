@@ -8,20 +8,18 @@ namespace DB.Lab2
 {
     public class MapContext
     {
-
-        static Map map;
+        static Map map = new Map();
 
         public static void AddMapToDatabase(EntityContext context) // Adds map to database
         {
             Console.WriteLine("Enter a map name");
             map.MapName = Console.ReadLine();
-            Console.WriteLine("Enter Max amount of moves");
+            Console.WriteLine("Enter max amount of moves");
             map.MaxMoves = int.Parse(Console.ReadLine());
             context.Maps.Add(new Map(map.MaxMoves, map.MapName));
             Console.WriteLine($"{map.MapName} added to database");
             context.SaveChanges();
         }
-
 
         public static Map IsMapAdded(EntityContext context)  //Checks if map is added before adding a player
         {

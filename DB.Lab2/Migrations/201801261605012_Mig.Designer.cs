@@ -13,7 +13,7 @@ namespace DB.Lab2.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "201801261006598_Mig"; }
+            get { return "201801261605012_Mig"; }
         }
         
         string IMigrationMetadata.Source

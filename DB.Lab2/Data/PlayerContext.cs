@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace DB.Lab2
 {
-    class PlayerContext
+    public class PlayerContext
     {
         static Map map = new Map();
         static Player player = new Player();
@@ -31,7 +31,6 @@ namespace DB.Lab2
                 Console.WriteLine("\nPress enter to continue..");
                 Console.ReadKey();
             }
-
         }
 
         public static void AddMovesToPlayer(EntityContext context)
@@ -73,13 +72,11 @@ namespace DB.Lab2
                 Console.ReadKey();
             }
         }
-
         public static void ShowPlayer(EntityContext context)  // Shows all existing players
         {
             Console.Clear();
             Query.ShowPlayerQuery(context);
         }
-
         public static void EditPlayer(EntityContext context) // A Switch menu to choose wether to edit player name or score
         {
             Console.Clear();
@@ -99,12 +96,6 @@ namespace DB.Lab2
             context.SaveChanges();
         }
 
-        //public static int ReturnPlayerId()
-        //{
-        //    int playerId = int.Parse(Console.ReadLine());
-        //    return playerId;
-        //}
-
         public static Player ChoosePlayer(EntityContext context, ref int playerId)
         {
             player = Query.GetPlayerById(context, playerId);
@@ -112,9 +103,6 @@ namespace DB.Lab2
         }
         public static void EditPlayerName(EntityContext context, string playerName)
         {
-            //Choose player - v
-            //Change player
-            //Save player - v
             Console.WriteLine("\nChoose Player by id");
             int playerId = int.Parse(Console.ReadLine());
             var player = ChoosePlayer(context, ref playerId);

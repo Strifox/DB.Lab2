@@ -11,39 +11,39 @@ namespace DB.Lab2
 {
     public class Query
     {
-        //TODO: Fixa edit player query
         #region Player Query
-
         public static void ShowPlayerQuery(EntityContext context)
         {
             var showPlayerQuery = from show in context.Players
-                                  select show.Name;
+                                  select new
+                                  {
+                                      id = show.Id,
+                                      name = show.Name
+                                  };
 
             foreach (var player in showPlayerQuery)
             {
-                Console.WriteLine(player);
+                Console.WriteLine($"Id: {player.id}, Name: {player.name}");
             }
         }
-
-        public static bool DoesMapExist(EntityContext context, int Id)
+        public static Player GetPlayerByName(EntityContext context, string name)
         {
-            var maps = from map in context.Maps
-                          select map;
-
-            foreach (var map in maps)
-            {
-                if (map.Id == Id)
-                    return true;
-                else
-                    return false;
-            }
-            return false;
+            return (from player in context.Players
+                    where player.Name == name
+                    select player).Single();
         }
+        public static Player GetPlayerById(EntityContext context, int playerId)
+        {
+            var choosePlayerQuery = (from player in context.Players
+                                     where player.Id == playerId
+                                     select player).FirstOrDefault();
+            return choosePlayerQuery;
 
+        }
         public static bool DoesPlayerExist(EntityContext context, string Name)
         {
             var players = from player in context.Players
-                         select player;
+                          select player;
 
             foreach (var player in players)
             {
@@ -54,28 +54,9 @@ namespace DB.Lab2
             }
             return false;
         }
+        #endregion
 
-        //public static void ChoosePlayerQuery(EntityContext context)
-        //{
-        //    var chooseQuery = from choose in context.Players
-        //                      where choose.Id == playerId
-        //                      select choose;
-
-        //    foreach (var player in chooseQuery)
-        //    {
-        //        Console.WriteLine(player);
-        //    }
-        //}
-        public static void EditPlayerNameQuery(EntityContext context)
-        {
-           
-            Console.WriteLine("Type your new name");
-            var nameQuery = from p in context.Players
-                            where p.Name == Console.ReadLine()
-                            select p.Name;
-
-            Console.WriteLine($"You updated player name to: {nameQuery}");
-        }
+        #region Score
         public static void EditPlayerScoreQuery(EntityContext context)
         {
             Console.WriteLine("Type your new score");
@@ -88,27 +69,8 @@ namespace DB.Lab2
                 Console.WriteLine(score);
             }
         }
-
-        //Allt under är snott från Emil..
-        //Allt under är snott från Emil..
-        //Allt under är snott från Emil..
-        //Allt under är snott från Emil..
-        //Allt under är snott från Emil..
-        //Allt under är snott från Emil..
-        //Allt under är snott från Emil..
-        //Allt under är snott från Emil..
-        //Allt under är snott från Emil..
-        //Allt under är snott från Emil..
-        //Allt under är snott från Emil..
-        //Allt under är snott från Emil..
-        //Allt under är snott från Emil..
-        //Allt under är snott från Emil..
-        //Allt under är snott från Emil..
-        //Allt under är snott från Emil..
-
         public static void UpdateScore(EntityContext context)
         {
-            /*Hoppas du inte får huvudvärk av denna funktionen :) */
 
             Console.Clear();
             var players = from player in context.Players
@@ -126,7 +88,7 @@ namespace DB.Lab2
 
             if (DoesPlayerExist(context, name))
             {
-                thisPlayer = PlayerContext.GetPlayerByName(context, name);
+                thisPlayer = GetPlayerByName(context, name);
             }
             else
             {
@@ -136,7 +98,7 @@ namespace DB.Lab2
             }
 
             string IdString;
-            int Id = int.MinValue;
+            int Id;
             Map thisMap = null;
 
             while (thisMap == null)
@@ -186,7 +148,7 @@ namespace DB.Lab2
                            where score.Player.Id == thisPlayer.Id && score.Map.Id == thisMap.Id
                            select score;
 
-            int newScore = int.MinValue;
+            int newScore = Int32.MinValue;
             string stringNewScore;
             while (newScore > thisMap.MaxMoves || newScore < 0)
             {
@@ -235,12 +197,31 @@ namespace DB.Lab2
             Console.WriteLine("Press any key to continue...");
             Console.ReadKey();
         }
-
-
         #endregion
 
         #region Map Query
+        public static bool DoesMapExist(EntityContext context, int Id)
+        {
+            var maps = from map in context.Maps
+                       select map;
 
+            foreach (var map in maps)
+            {
+                if (map.Id == Id)
+                    return true;
+                else
+                    return false;
+            }
+            return false;
+        }
+        public static Map GetMapById(EntityContext context, int mapId)
+        {
+            // Search for map in context
+            var chooseQuery = (from map in context.Maps
+                               where map.Id == mapId
+                               select map).FirstOrDefault();
+            return chooseQuery;
+        }
         public static void ShowMapQuery(EntityContext context)
         {
             var showMapQuery = from show in context.Maps
@@ -255,7 +236,6 @@ namespace DB.Lab2
                 Console.WriteLine($"Map Id: {map.id}, Map Name: {map.name}");
             }
         }
-
         #endregion
     }
 }

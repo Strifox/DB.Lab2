@@ -56,9 +56,9 @@
     <Compile Include="Data\Query.cs" />
     <Compile Include="Data\Menu.cs" />
     <Compile Include="Data\Entities\Player.cs" />
-    <Compile Include="Migrations\201801191205479_Mig.cs" />
-    <Compile Include="Migrations\201801191205479_Mig.Designer.cs">
-      <DependentUpon>201801191205479_Mig.cs</DependentUpon>
+    <Compile Include="Migrations\201801261006598_Mig.cs" />
+    <Compile Include="Migrations\201801261006598_Mig.Designer.cs">
+      <DependentUpon>201801261006598_Mig.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Program.cs" />
@@ -70,8 +70,8 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201801191205479_Mig.resx">
-      <DependentUpon>201801191205479_Mig.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201801261006598_Mig.resx">
+      <DependentUpon>201801261006598_Mig.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

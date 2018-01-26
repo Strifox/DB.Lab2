@@ -30,20 +30,20 @@ namespace DB.Lab2
         public int Moves { get; set; } // Player moves (how many moves player used, NOT how many player think he will do)
 
         #endregion
+        #region Constructors
         public Player()
         {
 
-        }
-
+        } // Default(empty) constructor
         public Player(string name)
         {
             Name = name;
-        }
-
-
+        } // Constructor to set name property
         public Player(int moves)
         {
             Moves = moves;
-        }
+        } // Constructor to set moves property
+
+        #endregion
     }
 }

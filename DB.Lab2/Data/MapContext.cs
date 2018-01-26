@@ -9,8 +9,8 @@ namespace DB.Lab2
     public class MapContext
     {
 
-        static Map map = new Map();
-        static Map s = null;
+        static Map map;
+
         public static void AddMapToDatabase(EntityContext context) // Adds map to database
         {
             Console.WriteLine("Enter a map name");
@@ -18,7 +18,6 @@ namespace DB.Lab2
             Console.WriteLine("Enter Max amount of moves");
             map.MaxMoves = int.Parse(Console.ReadLine());
             context.Maps.Add(new Map(map.MaxMoves, map.MapName));
-            // context.SaveChanges();
             Console.WriteLine($"{map.MapName} added to database");
             context.SaveChanges();
         }
@@ -39,43 +38,18 @@ namespace DB.Lab2
                 AddMapToDatabase(context);
                 context.SaveChanges();
             }
-            //var mapQuery = from map in context.Maps
-            //               select map.MapName;
-            //foreach (var map in mapQuery)
-            //{
-            //if (mapName == MapName)
-            //    Console.WriteLine("The map name already exists");
-            //else
-            //    AddMapToDatabase(context);
-            //}
-            //
-            //
-            //
-            //
-            return s;
+            return map;
         }
 
-
-        public static Map ChooseMap(EntityContext context, int mapId)
+        public static Map ChooseMap(EntityContext context, int mapId) //Chooses map
         {
-            //1. Skriva ut kartor
-            //2. Hämta input från consol
-            //3. Returnera id för vald karta
             if (!Query.DoesMapExist(context, mapId))
                 Console.WriteLine("Invalid map");
             else
-                s = MapContext.GetMapById(context, mapId);
+                map = Query.GetMapById(context, mapId);
 
-            return s;
+            return map;
         }
 
-        public static Map GetMapById(EntityContext context, int mapId)
-        {
-            // Search for map in context
-            var chooseQuery = (from map in context.Maps
-                              where map.Id == mapId
-                              select map).FirstOrDefault();
-            return chooseQuery;
-        }
     }
 }

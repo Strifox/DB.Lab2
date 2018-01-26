@@ -11,20 +11,14 @@ namespace DB.Lab2
     {
         //Instances
         private EntityContext e = new EntityContext();
-        private Map m = new Map();
-        private Player p = new Player();
-
-        public void MenuDatabase()
+        public void MenuDbIntro()
         {
             Console.WriteLine("Welcome to Angry Birds Console");
             Thread.Sleep(1000);
             Console.Clear();
-
             MenuSwitch();
         }
-
-
-        public void MenuSwitch()
+        public void MenuSwitch() // Menu
         {
             string menuChoice;
             do
@@ -66,7 +60,7 @@ namespace DB.Lab2
                     case "6":
                         Console.Clear();
                         Console.WriteLine("Thanks for playing!");
-                        Console.WriteLine("\nPress enter to continue..");
+                        Console.WriteLine("\nPress enter to exit");
                         Console.ReadKey();
                         break;
                     default:
@@ -79,6 +73,6 @@ namespace DB.Lab2
 
             } while (menuChoice != "6");
 
-        }
+        } 
     }
 }

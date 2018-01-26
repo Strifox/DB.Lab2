@@ -11,7 +11,7 @@ namespace DB.Lab2
         static void Main(string[] args)
         {
             Menu menu = new Menu();
-            menu.MenuDatabase();
+            menu.MenuDbIntro();
         }
     }
 }

@@ -10,22 +10,21 @@ namespace DB.Lab2
 {
     public class Score
     {
+        #region Properties
         [Key]
         public int Id { get; set; }
-
         public virtual Map Map { get; set; }
         public virtual Player Player { get; set; }
-
         [Column("Player_Score", TypeName = "int")]
         public int PlayerScore { get; set; }
-
+        #endregion
 
         public Score(Map map, Player player, int playerScore)
         {
             Map = map;
             Player = player;
             PlayerScore = playerScore;
-        }
+        } 
         
 
     }

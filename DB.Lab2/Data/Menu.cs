@@ -47,7 +47,7 @@ namespace DB.Lab2
                         MapContext.AddMapToDatabase(e);
                         break;
                     case "3":
-                        //p.EditPlayer(e);
+                        PlayerContext.EditPlayer(e);
                         break;
                     case "4":
                         Console.Clear();

@@ -20,6 +20,7 @@ namespace DB.Lab2
             context.Maps.Add(new Map(map.MaxMoves, map.MapName));
             // context.SaveChanges();
             Console.WriteLine($"{map.MapName} added to database");
+            context.SaveChanges();
         }
 
 
@@ -36,6 +37,7 @@ namespace DB.Lab2
             {
                 Console.WriteLine("There is no map added, you must first add a map");
                 AddMapToDatabase(context);
+                context.SaveChanges();
             }
             //var mapQuery = from map in context.Maps
             //               select map.MapName;
@@ -50,7 +52,6 @@ namespace DB.Lab2
             //
             //
             //
-            context.SaveChanges();
             return s;
         }
 

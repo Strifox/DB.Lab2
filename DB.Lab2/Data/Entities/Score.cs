@@ -20,7 +20,12 @@ namespace DB.Lab2
         public int PlayerScore { get; set; }
 
 
-
+        public Score(Map map, Player player, int playerScore)
+        {
+            Map = map;
+            Player = player;
+            PlayerScore = playerScore;
+        }
         
 
     }

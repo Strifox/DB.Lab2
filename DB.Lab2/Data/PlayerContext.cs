@@ -37,7 +37,7 @@ namespace DB.Lab2
         public static void AddMovesToPlayer(EntityContext context)
         {
             bool correctlyEntered;
-            MapContext.IsMapAdded(context);
+            Map currentMap = MapContext.IsMapAdded(context);
             Console.WriteLine($"Choose a player with Id to add moves to that player: \n {player.Id}. {player.Name}");
             Query.ShowPlayerQuery(context);
             int id = Int32.Parse(Console.ReadLine()); // Sets player name in database to this
@@ -50,7 +50,7 @@ namespace DB.Lab2
                     if (score.PlayerScore <= Query.ReturnMaxMapMoves(context))
                     {
                         //TODO: Lägga in MapID som parameter
-                        context.Scores.Add(new Score(Query.GetMapById(context, ),Query.GetPlayerById(context, id), score.PlayerScore)); //Adds player moves to Table
+                        context.Scores.Add(new Score(currentMap,Query.GetPlayerById(context, id), score.PlayerScore)); //Adds player moves to Table
                         context.SaveChanges();
                         Console.WriteLine("Database added");
                         correctlyEntered = true;

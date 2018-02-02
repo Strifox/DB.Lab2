@@ -45,7 +45,6 @@ namespace DB.Lab2
                 Console.WriteLine("Invalid map");
             else
                 map = Query.GetMapById(context, mapId);
-
             return map;
         }
 

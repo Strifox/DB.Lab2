@@ -24,14 +24,16 @@ namespace DB.Lab2
             do
             {
                 Console.Clear();
-                Console.WriteLine("Press '1' to Add a player");
-                Console.WriteLine("Press '2' to Add a Map");
-                Console.WriteLine("Press '3' to Edit a player");
-                Console.WriteLine("Press '4' to show all players");
-                Console.WriteLine("Press '5' to show all maps");
-                Console.WriteLine("Press '6' to Exit game");
+                Console.WriteLine("Press '1' to add a player");
+                Console.WriteLine("Press '2' to add a Map");
+                Console.WriteLine("Press '3' to edit a player");
+                Console.WriteLine("Press '4' to add a score to a player");
+                Console.WriteLine("Press '5' to show all players");
+                Console.WriteLine("Press '6' to show all maps");
+                Console.WriteLine("Press '7' to Exit game");
 
                 menuChoice = Console.ReadLine();
+
                 switch (menuChoice)
                 {
                     case "1":
@@ -44,20 +46,22 @@ namespace DB.Lab2
                         PlayerContext.EditPlayer(e);
                         break;
                     case "4":
+                        break;
+                    case "5":
                         Console.Clear();
                         Console.WriteLine("Players in database:");
                         Query.ShowPlayerQuery(e);
                         Console.WriteLine("\nPress enter to continue..");
                         Console.ReadKey();
                         break;
-                    case "5":
+                    case "6":
                         Console.Clear();
                         Console.WriteLine("Maps in database:");
                         Query.ShowMapQuery(e);
                         Console.WriteLine("\nPress enter to continue..");
                         Console.ReadKey();
                         break;
-                    case "6":
+                    case "7":
                         Console.Clear();
                         Console.WriteLine("Thanks for playing!");
                         Console.WriteLine("\nPress enter to exit");

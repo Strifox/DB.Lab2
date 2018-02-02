@@ -13,13 +13,14 @@ namespace DB.Lab2
     {
         static Map map = new Map();
         static Player player = new Player();
+        static Score score = new Score(); 
 
         public static void AddPlayerToDatabase(EntityContext context)
         {
             Console.WriteLine("Type your Name (Case sensitive)");
             player.Name = Console.ReadLine(); // Sets player name in database to this
 
-            if (!Query.DoesPlayerExist(context, player.Name))
+            if (!Query.DoesPlayerExistWithName(context, player.Name))
             {
                 context.Players.Add(new Player(player.Name)); //Adds player to Database
                 context.SaveChanges();
@@ -37,20 +38,19 @@ namespace DB.Lab2
         {
             bool correctlyEntered;
             MapContext.IsMapAdded(context);
-
-            Console.WriteLine("Type your Name (Case sensitive)");
-            player.Name = Console.ReadLine(); // Sets player name in database to this
-
-            if (!Query.DoesPlayerExist(context, player.Name))
+            Console.WriteLine($"Choose a player with Id to add moves to that player: \n {player.Id}. {player.Name}");
+            Query.ShowPlayerQuery(context);
+            int id = Int32.Parse(Console.ReadLine()); // Sets player name in database to this
+            if (!Query.DoesPlayerExistWithId(context, id))
             {
                 do
                 {
-                    Console.WriteLine($"Max moves: {map.MaxMoves}");
                     Console.WriteLine("Type how many moves you made");
-                    player.Moves = int.Parse(Console.ReadLine()); // Sets player moves in database to this
-                    if (player.Moves <= map.MaxMoves)
+                    score.PlayerScore = int.Parse(Console.ReadLine()); // Sets player moves in database to this
+                    if (score.PlayerScore <= Query.ReturnMaxMapMoves(context))
                     {
-                        context.Players.Add(new Player(player.Moves)); //Adds player to Database
+                        //TODO: Lägga in MapID som parameter
+                        context.Scores.Add(new Score(Query.GetMapById(context, ),Query.GetPlayerById(context, id), score.PlayerScore)); //Adds player moves to Table
                         context.SaveChanges();
                         Console.WriteLine("Database added");
                         correctlyEntered = true;

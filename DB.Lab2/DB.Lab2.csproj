@@ -61,6 +61,10 @@
     <Compile Include="Migrations\201801261605012_Mig.Designer.cs">
       <DependentUpon>201801261605012_Mig.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201802021828211_Updated-Contexts.cs" />
+    <Compile Include="Migrations\201802021828211_Updated-Contexts.Designer.cs">
+      <DependentUpon>201802021828211_Updated-Contexts.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -73,6 +77,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201801261605012_Mig.resx">
       <DependentUpon>201801261605012_Mig.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201802021828211_Updated-Contexts.resx">
+      <DependentUpon>201802021828211_Updated-Contexts.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

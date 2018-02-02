@@ -25,10 +25,10 @@ namespace DB.Lab2
         {
             if (context.Maps.Any())
             {
-                Console.WriteLine("You must choose a map before adding a player. Enter Map name:");
+                Console.WriteLine("You must choose a map before adding a player. Enter Map name by ID:");
                 Query.ShowMapQuery(context);
-                int mapName = int.Parse(Console.ReadLine());
-                ChooseMap(context, mapName);
+                int mapId = ReturnedParsedStringForMapId(); // TODO: VILL ANVÄNDA DENNA VARIABLEN I EN ANNAN KLASS SOM EN PARAMETER
+                ChooseMap(context, ref mapId);
             }
             else if (!context.Maps.Any())
             {
@@ -39,14 +39,25 @@ namespace DB.Lab2
             return map;
         }
 
-        public static Map ChooseMap(EntityContext context, int mapId) //Chooses map
+        public static int ReturnedParsedStringForMapId()
         {
-            if (!Query.DoesMapExist(context, mapId))
-                Console.WriteLine("Invalid map");
-            else
-                map = Query.GetMapById(context, mapId);
+            int mapId = int.Parse(Console.ReadLine());
+            return mapId;
+        }
+        public static Map ChooseMap(EntityContext context, ref int mapId)
+        {
+            map = Query.GetMapById(context, mapId);
             return map;
         }
+        //public static Map ChooseMap(EntityContext context, ref int mapId) //Chooses map
+        //{
+        //    if (Query.DoesMapExist(context, mapId))
+        //        Console.WriteLine("Invalid map");
+        //    else
+        //        map = Query.GetMapById(context, mapId);
+
+        //    return map;
+        //}
 
     }
 }

@@ -34,9 +34,6 @@ namespace DB.Lab2
                 .HasColumnName("Name")
                 .HasColumnType("nvarchar")
                 .HasMaxLength(50);
-            playerConfig.Property(p => p.Moves)
-                .HasColumnName("Moves")
-                .HasColumnType("int");
             #endregion
 
             #region Map

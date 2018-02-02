@@ -24,8 +24,8 @@ namespace DB.Lab2
             Map = map;
             Player = player;
             PlayerScore = playerScore;
-        } 
-        
+        }
 
+        public Score() { }
     }
 }

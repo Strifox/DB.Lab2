@@ -10,7 +10,7 @@ namespace DB.Lab2
     class Menu
     {
         //Instances
-        private EntityContext e = new EntityContext();
+        private EntityContext context = new EntityContext();
         public void MenuDbIntro()
         {
             Console.WriteLine("Welcome to Angry Birds Console");
@@ -27,7 +27,7 @@ namespace DB.Lab2
                 Console.WriteLine("Press '1' to add a player");
                 Console.WriteLine("Press '2' to add a Map");
                 Console.WriteLine("Press '3' to edit a player");
-                Console.WriteLine("Press '4' to add a score to a player");
+                Console.WriteLine("Press '4' to add moves to a player");
                 Console.WriteLine("Press '5' to show all players");
                 Console.WriteLine("Press '6' to show all maps");
                 Console.WriteLine("Press '7' to Exit game");
@@ -37,29 +37,31 @@ namespace DB.Lab2
                 switch (menuChoice)
                 {
                     case "1":
-                        PlayerContext.AddPlayerToDatabase(e);
+                        PlayerContext.AddPlayerToDatabase(context);
                         break;
                     case "2":
-                        MapContext.AddMapToDatabase(e);
+                        MapContext.AddMapToDatabase(context);
                         break;
                     case "3":
-                        PlayerContext.EditPlayer(e);
+                        PlayerContext.EditPlayer(context);
                         break;
                     case "4":
+                        PlayerContext.AddMovesToPlayer(context);
                         break;
                     case "5":
                         Console.Clear();
                         Console.WriteLine("Players in database:");
-                        Query.ShowPlayerQuery(e);
+                        Query.ShowPlayerQuery(context);
                         Console.WriteLine("\nPress enter to continue..");
                         Console.ReadKey();
                         break;
                     case "6":
                         Console.Clear();
                         Console.WriteLine("Maps in database:");
-                        Query.ShowMapQuery(e);
+                        Query.ShowMapQuery(context);
                         Console.WriteLine("\nPress enter to continue..");
                         Console.ReadKey();
+                        MenuSwitch();
                         break;
                     case "7":
                         Console.Clear();

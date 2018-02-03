@@ -1,11 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Data.Entity.Migrations;
 using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
-using System.Threading.Tasks;
 
 namespace DB.Lab2
 {
@@ -13,22 +9,24 @@ namespace DB.Lab2
     {
         static Map map = new Map();
         static Player player = new Player();
-        static Score score = new Score(); 
+        static Score score = new Score();
 
         public static void AddPlayerToDatabase(EntityContext context)
         {
             Console.WriteLine("Type your Name (Case sensitive)");
-            player.Name = Console.ReadLine(); // Sets player name in database to this
+            string playerName = Console.ReadLine(); // Sets player name in database to this
 
-            if (!Query.DoesPlayerExistWithName(context, player.Name))
+            if (!Query.DoesPlayerExistWithName(context, playerName))
             {
-                context.Players.Add(new Player(player.Name)); //Adds player to Database
+                context.Players.Add(new Player(playerName)); //Adds player to Database
                 context.SaveChanges();
                 Console.WriteLine("Database added");
             }
             else
             {
                 Console.WriteLine("Player already exists..");
+                Console.WriteLine();
+                DoesPlayerExistIncludedWithScore(context, playerName);
                 Console.WriteLine("\nPress enter to continue..");
                 Console.ReadKey();
             }
@@ -36,13 +34,13 @@ namespace DB.Lab2
 
         public static void AddMovesToPlayer(EntityContext context)
         {
-            bool correctlyEntered;
             Map currentMap = MapContext.IsMapAdded(context);
             Console.WriteLine($"Choose a player with Id to add moves to that player: \n {player.Id}. {player.Name}");
             Query.ShowPlayerQuery(context);
             int id = Int32.Parse(Console.ReadLine()); // Sets player name in database to this
             if (!Query.DoesPlayerExistWithId(context, id))
             {
+                bool correctlyEntered;
                 do
                 {
                     Console.WriteLine("Type how many moves you made");
@@ -50,9 +48,11 @@ namespace DB.Lab2
                     if (score.PlayerScore <= Query.ReturnMaxMapMoves(context))
                     {
                         //TODO: Lägga in MapID som parameter
-                        context.Scores.Add(new Score(currentMap,Query.GetPlayerById(context, id), score.PlayerScore)); //Adds player moves to Table
+                        context.Scores.Add(new Score(currentMap, Query.GetPlayerById(context, id), score.PlayerScore)); //Adds player moves to Table
                         context.SaveChanges();
                         Console.WriteLine("Database added");
+                        Console.WriteLine("\nPress enter to continue..");
+                        Console.ReadKey();
                         correctlyEntered = true;
                     }
                     else
@@ -95,7 +95,6 @@ namespace DB.Lab2
             }
             context.SaveChanges();
         }
-
         public static Player ChoosePlayer(EntityContext context, ref int playerId)
         {
             player = Query.GetPlayerById(context, playerId);
@@ -114,7 +113,6 @@ namespace DB.Lab2
             context.SaveChanges();
             Thread.Sleep(1500);
         }
-
         public static bool IsInputValid(string input)
         {
             string pattern = @"^[0-9]{1,}$";
@@ -124,6 +122,24 @@ namespace DB.Lab2
                 return true;
             else
                 return false;
+        }
+        public static void DoesPlayerExistIncludedWithScore(EntityContext context, string playerName)
+        {
+            var playerIdByName = Query.GetPlayerByName(context, playerName);
+
+            var Rounds = Query.GetAllScoresForPlayer(context, playerIdByName);
+
+            foreach (var round in Rounds)
+            {
+                if (round.Player.Id == playerIdByName.Id)
+                {
+                    var highest = Rounds.Where(r => r.Map.Id == round.Map.Id).OrderBy(r => r.PlayerScore).Take(1);
+                    Console.WriteLine($"Bana: {round.Map.MapName},  Använda Drag: {round.PlayerScore}, Drag Kvar: {round.Map.MaxMoves - round.PlayerScore}, HighScore {highest.First().Player.Name}: {highest.First().PlayerScore}");
+                }
+            }
+            var totalscore = Rounds.Where(r => r.Player.Id == playerIdByName.Id).Sum(r => r.PlayerScore);
+            Console.WriteLine($"Total antal moves: {totalscore}");
+
         }
     }
 }

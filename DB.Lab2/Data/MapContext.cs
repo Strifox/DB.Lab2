@@ -25,9 +25,9 @@ namespace DB.Lab2
         {
             if (context.Maps.Any())
             {
-                Console.WriteLine("You must choose a map before adding a player. Enter Map name by ID:");
+                Console.WriteLine("You must choose a map before adding moves to a player. Enter the map name by typing the ID:");
                 Query.ShowMapQuery(context);
-                int mapId = ReturnedParsedStringForMapId(); // TODO: VILL ANVÄNDA DENNA VARIABLEN I EN ANNAN KLASS SOM EN PARAMETER
+                int mapId = int.Parse(Console.ReadLine());
                 ChooseMap(context, ref mapId);
             }
             else if (!context.Maps.Any())
@@ -39,11 +39,7 @@ namespace DB.Lab2
             return map;
         }
 
-        public static int ReturnedParsedStringForMapId()
-        {
-            int mapId = int.Parse(Console.ReadLine());
-            return mapId;
-        }
+
         public static Map ChooseMap(EntityContext context, ref int mapId)
         {
             map = Query.GetMapById(context, mapId);

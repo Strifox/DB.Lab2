@@ -65,6 +65,10 @@
     <Compile Include="Migrations\201802021828211_Updated-Contexts.Designer.cs">
       <DependentUpon>201802021828211_Updated-Contexts.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201802030017361_revertédearliermigs.cs" />
+    <Compile Include="Migrations\201802030017361_revertédearliermigs.Designer.cs">
+      <DependentUpon>201802030017361_revertédearliermigs.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -80,6 +84,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201802021828211_Updated-Contexts.resx">
       <DependentUpon>201802021828211_Updated-Contexts.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201802030017361_revertédearliermigs.resx">
+      <DependentUpon>201802030017361_revertédearliermigs.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

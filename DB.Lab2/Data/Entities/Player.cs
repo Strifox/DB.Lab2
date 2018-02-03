@@ -29,14 +29,14 @@ namespace DB.Lab2
 
         #endregion
         #region Constructors
-        public Player()
+        public Player() // Default(empty) constructor
         {
 
-        } // Default(empty) constructor
-        public Player(string name)
+        } 
+        public Player(string name) // Constructor to set name property
         {
             Name = name;
-        } // Constructor to set name property
+        }
         #endregion
     }
 }

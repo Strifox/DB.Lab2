@@ -43,17 +43,16 @@ namespace DB.Lab2
         {
             var players = from player in context.Players
                           select player;
-
-            bool isPlayerInDB = false;
             foreach (var player in players)
             {
                 if (player.Id == playerId)
-                    isPlayerInDB = true;
+                    return true;
                 else
-                    isPlayerInDB = false;
+                    return false;
             }
-            return isPlayerInDB;
+            return false;
         }
+
         public static bool DoesPlayerExistWithName(EntityContext context, string name)
         {
             var players = from player in context.Players
@@ -63,11 +62,11 @@ namespace DB.Lab2
             {
                 if (player.Name == name)
                     return true;
-                else
-                    return false;
             }
             return false;
         }
+
+
         #endregion
 
         #region Score
@@ -83,6 +82,24 @@ namespace DB.Lab2
         //        Console.WriteLine(score);
         //    }
         //}
+        public static List<Score> GetAllScoresForPlayer(EntityContext context, Player player)
+        {
+            // Du skickar in den player du vill kolla upp
+            // Du går igenom alla scores som finns och väljer bara ut dem som har score.playerId == player.Id
+            return context.Scores.Where(s => s.Player.Id == player.Id).ToList();
+        }
+        public static bool DoesPlayerExistInScore(EntityContext context, int playerId)
+        {
+            var players = from player in context.Scores
+                          where player.Id == playerId
+                          select player;
+            foreach (var player in players)
+            {
+                if (player.Id == playerId)
+                    return true;
+            }
+            return false;
+        }
         public static void UpdateScore(EntityContext context)
         {
 
@@ -218,15 +235,14 @@ namespace DB.Lab2
             var maps = from map in context.Maps
                        select map;
 
-            bool isMapInDB = false;
+
             foreach (var map in maps)
             {
                 if (map.Id == Id)
-                    isMapInDB = true;
-                else
-                    isMapInDB = false;
+                    return true;
+                return false;
             }
-            return isMapInDB;
+            return false;
         }
         public static void ShowMapQuery(EntityContext context)
         {
@@ -245,9 +261,8 @@ namespace DB.Lab2
         public static Map GetMapById(EntityContext context, int mapId)
         {
             // Search for map in context
-            int id = mapId;
             var chooseQuery = (from map in context.Maps
-                               where map.Id == id
+                               where map.Id == mapId
                                select map).FirstOrDefault();
             return chooseQuery;
         }
@@ -255,7 +270,7 @@ namespace DB.Lab2
         public static int ReturnMaxMapMoves(EntityContext context)
         {
             var moves = (from map in context.Maps
-                        select map.MaxMoves).FirstOrDefault();
+                         select map.MaxMoves).FirstOrDefault();
             int maxMoves = Convert.ToInt32(moves);
             return maxMoves;
         }

@@ -56,17 +56,21 @@
     <Compile Include="Data\Query.cs" />
     <Compile Include="Data\Menu.cs" />
     <Compile Include="Data\Entities\Player.cs" />
-    <Compile Include="Migrations\201801261605012_Mig.cs" />
-    <Compile Include="Migrations\201801261605012_Mig.Designer.cs">
-      <DependentUpon>201801261605012_Mig.cs</DependentUpon>
+    <Compile Include="Migrations\201802060940519_test.cs" />
+    <Compile Include="Migrations\201802060940519_test.Designer.cs">
+      <DependentUpon>201802060940519_test.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201802021828211_Updated-Contexts.cs" />
-    <Compile Include="Migrations\201802021828211_Updated-Contexts.Designer.cs">
-      <DependentUpon>201802021828211_Updated-Contexts.cs</DependentUpon>
+    <Compile Include="Migrations\201802061339227_RemovedAnnotations.cs" />
+    <Compile Include="Migrations\201802061339227_RemovedAnnotations.Designer.cs">
+      <DependentUpon>201802061339227_RemovedAnnotations.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201802030017361_revertédearliermigs.cs" />
-    <Compile Include="Migrations\201802030017361_revertédearliermigs.Designer.cs">
-      <DependentUpon>201802030017361_revertédearliermigs.cs</DependentUpon>
+    <Compile Include="Migrations\201802061341027_changedAllColumnsToLowerCases.cs" />
+    <Compile Include="Migrations\201802061341027_changedAllColumnsToLowerCases.Designer.cs">
+      <DependentUpon>201802061341027_changedAllColumnsToLowerCases.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201802061454352_ChangedMapNameRequired.cs" />
+    <Compile Include="Migrations\201802061454352_ChangedMapNameRequired.Designer.cs">
+      <DependentUpon>201802061454352_ChangedMapNameRequired.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Program.cs" />
@@ -78,14 +82,17 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201801261605012_Mig.resx">
-      <DependentUpon>201801261605012_Mig.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201802060940519_test.resx">
+      <DependentUpon>201802060940519_test.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201802021828211_Updated-Contexts.resx">
-      <DependentUpon>201802021828211_Updated-Contexts.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201802061339227_RemovedAnnotations.resx">
+      <DependentUpon>201802061339227_RemovedAnnotations.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201802030017361_revertédearliermigs.resx">
-      <DependentUpon>201802030017361_revertédearliermigs.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201802061341027_changedAllColumnsToLowerCases.resx">
+      <DependentUpon>201802061341027_changedAllColumnsToLowerCases.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201802061454352_ChangedMapNameRequired.resx">
+      <DependentUpon>201802061454352_ChangedMapNameRequired.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

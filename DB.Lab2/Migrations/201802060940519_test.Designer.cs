@@ -7,13 +7,13 @@ namespace DB.Lab2.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.2.0-61023")]
-    public sealed partial class UpdatedContexts : IMigrationMetadata
+    public sealed partial class test : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(UpdatedContexts));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(test));
         
         string IMigrationMetadata.Id
         {
-            get { return "201802021828211_Updated-Contexts"; }
+            get { return "201802060940519_test"; }
         }
         
         string IMigrationMetadata.Source

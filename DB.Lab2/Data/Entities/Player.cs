@@ -13,15 +13,13 @@ namespace DB.Lab2
     public class Player
     {
 
-        public virtual IList<Score> Scores { get; set; }
+        public  IList<Score> Scores { get; set; }
 
         #region Properties To Columns
 
         [Key]
         public int Id { get; set; } // Player ID (Primary key)
         
-        [Column("Name", TypeName = "nvarchar")]
-        [MaxLength(32)]
         public string Name { get; set; } // Player name
 
         public IList<Map> PlayedMaps { get; set; }

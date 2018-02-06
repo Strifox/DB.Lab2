@@ -7,13 +7,13 @@ namespace DB.Lab2.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.2.0-61023")]
-    public sealed partial class Mig : IMigrationMetadata
+    public sealed partial class ChangedMapNameRequired : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(Mig));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(ChangedMapNameRequired));
         
         string IMigrationMetadata.Id
         {
-            get { return "201801261605012_Mig"; }
+            get { return "201802061454352_ChangedMapNameRequired"; }
         }
         
         string IMigrationMetadata.Source

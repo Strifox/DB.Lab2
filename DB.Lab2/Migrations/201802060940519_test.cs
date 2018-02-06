@@ -3,7 +3,7 @@ namespace DB.Lab2.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class Mig : DbMigration
+    public partial class test : DbMigration
     {
         public override void Up()
         {
@@ -41,7 +41,6 @@ namespace DB.Lab2.Migrations
                     {
                         Id = c.Int(nullable: false, identity: true),
                         Name = c.String(maxLength: 50),
-                        Moves = c.Int(nullable: false),
                     })
                 .PrimaryKey(t => t.Id);
             

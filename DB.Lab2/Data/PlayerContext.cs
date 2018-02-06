@@ -7,7 +7,6 @@ namespace DB.Lab2
 {
     public class PlayerContext
     {
-        static Map map = new Map();
         static Player player = new Player();
         static Score score = new Score();
 
@@ -34,17 +33,18 @@ namespace DB.Lab2
         public static void AddMovesToPlayer(EntityContext context)
         {
             Map currentMap = MapContext.IsMapAdded(context);
-            Console.WriteLine($"Choose a player with Id to add moves to that player: \n {player.Id}. {player.Name}");
+            Console.WriteLine("Players in database");
             Query.ShowPlayerQuery(context);
+            Console.WriteLine($"Choose a player with Id to add moves to that player:");
             int id = Int32.Parse(Console.ReadLine()); // Sets player name in database to this
-            if (!Query.DoesPlayerExistWithId(context, id))
+            if (!Query.DoesPlayerExistInScore(context, id, currentMap.Id))
             {
                 bool correctlyEntered;
                 do
                 {
                     Console.WriteLine("Type how many moves you made");
                     score.PlayerScore = int.Parse(Console.ReadLine()); // Sets player moves in database to this
-                    if (score.PlayerScore <= Query.ReturnMaxMapMoves(context))
+                    if (score.PlayerScore <= Query.ReturnMaxMapMoves(context, currentMap.Id))
                     {
                         //TODO: Lägga in MapID som parameter
                         context.Scores.Add(new Score(currentMap, Query.GetPlayerById(context, id), score.PlayerScore)); //Adds player moves to Table
@@ -56,7 +56,7 @@ namespace DB.Lab2
                     }
                     else
                     {
-                        Console.WriteLine($"You can't do more steps than max.\n(max moves: {map.MaxMoves} )");
+                        Console.WriteLine($"You can't do more steps than max.\n(max moves: {currentMap.MaxMoves} )");
                         Console.WriteLine("\nPress enter to continue..");
                         Console.ReadKey();
                         correctlyEntered = false;
@@ -66,7 +66,7 @@ namespace DB.Lab2
             }
             else
             {
-                Console.WriteLine("Player already exists..");
+                Console.WriteLine("Player already has a score on this map");
                 Console.WriteLine("\nPress enter to continue..");
                 Console.ReadKey();
             }
@@ -75,6 +75,7 @@ namespace DB.Lab2
         {
             Console.Clear();
             Query.ShowPlayerQuery(context);
+
         }
         public static void EditPlayer(EntityContext context) // A Switch menu to choose wether to edit player name or score
         {
@@ -132,6 +133,7 @@ namespace DB.Lab2
             {
                 if (round.Player.Id == playerIdByName.Id)
                 {
+
                     var highest = Rounds.Where(r => r.Map.Id == round.Map.Id).OrderBy(r => r.PlayerScore).Take(1);
                     Console.WriteLine($"Bana: {round.Map.MapName},  Använda Drag: {round.PlayerScore}, Drag Kvar: {round.Map.MaxMoves - round.PlayerScore}, HighScore {highest.First().Player.Name}: {highest.First().PlayerScore}");
                 }

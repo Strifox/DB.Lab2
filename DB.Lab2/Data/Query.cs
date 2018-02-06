@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Data.Entity.Migrations;
 using System.Linq;
 using System.Text;
@@ -14,15 +15,17 @@ namespace DB.Lab2
         #region Player Query
         public static void ShowPlayerQuery(EntityContext context)
         {
-            var showPlayerQuery = from show in context.Players
-                                  select new
-                                  {
-                                      id = show.Id,
-                                      name = show.Name
-                                  };
-            foreach (var player in showPlayerQuery)
+            var players = context.Players.Include(p => p.Scores).ToList();
+
+            foreach (var player in players)
             {
-                Console.WriteLine($"Id: {player.id}, Name: {player.name}");
+                //context.Configuration.LazyLoadingEnabled = false;
+                Console.WriteLine($"Id: {player.Id}, Name: {player.Name}");
+                foreach (var score in player.Scores)
+                {
+                    Console.WriteLine($"\tMap {score.Map.MapName}, Score: {score.PlayerScore}");
+                }
+                Console.WriteLine();
             }
         }
         public static Player GetPlayerByName(EntityContext context, string name)
@@ -47,8 +50,7 @@ namespace DB.Lab2
             {
                 if (player.Id == playerId)
                     return true;
-                else
-                    return false;
+
             }
             return false;
         }
@@ -71,17 +73,16 @@ namespace DB.Lab2
         {
             return context.Scores.Where(s => s.Player.Id == player.Id).ToList();
         }
-        public static bool DoesPlayerExistInScore(EntityContext context, int playerId)
+        public static bool DoesPlayerExistInScore(EntityContext context, int playerId, int mapId)
         {
-            var players = from player in context.Scores
-                          where player.Id == playerId
-                          select player;
-            foreach (var player in players)
-            {
-                if (player.Id == playerId)
-                    return true;
-            }
+            var players = (from score in context.Scores
+                           where score.Player.Id == playerId && score.Map.Id == mapId
+                           select score).Count();
+
+            if (players > 0)
+                return true;
             return false;
+
         }
         public static void UpdateScore(EntityContext context)
         {
@@ -158,57 +159,65 @@ namespace DB.Lab2
                     Thread.Sleep(2000);
                 }
             }
+            // kolla om thisplayer är null
+
             var GetScore = from score in context.Scores
                            where score.Player.Id == thisPlayer.Id && score.Map.Id == thisMap.Id
                            select score;
 
             int newScore = Int32.MinValue;
             string stringNewScore;
-            while (newScore > thisMap.MaxMoves || newScore < 0)
+            if (thisPlayer != null)
             {
-                //Kollar om spelaren har ett score på banan annars kraschar det när den försöker skriva ut {GetScore.Single().PlayerTurns}.
+                while (newScore > thisMap.MaxMoves || newScore < 0)
+                {
+                    //Kollar om spelaren har ett score på banan annars kraschar det när den försöker skriva ut {GetScore.Single().PlayerTurns}.
+                    if (GetScore.Count() > 0)
+                    {
+                        Console.WriteLine(
+                            $"Please enter a new score for {thisPlayer.Name} on {thisMap.MapName} (Current Score is {GetScore.Single().PlayerScore} and Max Turns for this map is {thisMap.MaxMoves})");
+                    }
+                    else
+                    {
+                        Console.WriteLine(
+                            $"Please enter a new score for {thisPlayer.Name} on {thisMap.MapName} (This user has not played this map and Max Turns for this map is {thisMap.MaxMoves})");
+                    }
+
+                    stringNewScore = Console.ReadLine();
+                    if (!PlayerContext.IsInputValid(stringNewScore))
+                    {
+                        Console.Clear();
+                        Console.WriteLine("Only Digits is allowed! Try again: ");
+                        Thread.Sleep(1500);
+                        continue;
+                    }
+
+                    newScore = Convert.ToInt32(stringNewScore);
+
+                    if (newScore <= thisMap.MaxMoves && newScore >= 0)
+                        break;
+
+                    Console.WriteLine("Score is either too small or too high!");
+                    Thread.Sleep(2000);
+                }
                 if (GetScore.Count() > 0)
                 {
-                    Console.WriteLine($"Please enter a new score for {thisPlayer.Name} on {thisMap.MapName} (Current Score is {GetScore.Single().PlayerScore} and Max Turns for this map is {thisMap.MaxMoves})");
+                    GetScore.SingleOrDefault().PlayerScore = newScore;
                 }
                 else
                 {
-                    Console.WriteLine($"Please enter a new score for {thisPlayer.Name} on {thisMap.MapName} (This user has not played this map and Max Turns for this map is {thisMap.MaxMoves})");
+                    context.Scores.AddOrUpdate(new Score(thisMap, thisPlayer, newScore));
                 }
-
-                stringNewScore = Console.ReadLine();
-                if (!PlayerContext.IsInputValid(stringNewScore))
-                {
-                    Console.Clear();
-                    Console.WriteLine("Only Digits is allowed! Try again: ");
-                    Thread.Sleep(1500);
-                    continue;
-                }
-
-                newScore = Convert.ToInt32(stringNewScore);
-
-                if (newScore <= thisMap.MaxMoves && newScore >= 0)
-                    break;
-
-                Console.WriteLine("Score is either too small or too high!");
-                Thread.Sleep(2000);
-            }
-
-
-            if (GetScore.Count() > 0)
-            {
-                GetScore.SingleOrDefault().PlayerScore = newScore;
+                Console.Clear();
+                Console.WriteLine("Update successfull!");
+                context.SaveChanges();
             }
             else
             {
-                context.Scores.AddOrUpdate(new Score(thisMap, thisPlayer, newScore));
+                Console.WriteLine("Press any key to continue...");
+                Console.ReadKey();
             }
-            Console.Clear();
-            Console.WriteLine("Update successfull!");
-            context.SaveChanges();
 
-            Console.WriteLine("Press any key to continue...");
-            Console.ReadKey();
         }
         #endregion
 
@@ -249,13 +258,19 @@ namespace DB.Lab2
                                select map).FirstOrDefault();
             return chooseQuery;
         }
-        public static int ReturnMaxMapMoves(EntityContext context)
+        public static int ReturnMaxMapMoves(EntityContext context, int mapId)
         {
             var moves = (from map in context.Maps
-                         select map.MaxMoves).FirstOrDefault();
-            int maxMoves = Convert.ToInt32(moves);
+                         where map.Id == mapId
+                         select map.MaxMoves).ToList();
+            int maxMoves = 0;
+            foreach (var maxmove in moves)
+            {
+                maxMoves = maxmove;
+            }
             return maxMoves;
         }
         #endregion
     }
 }
+

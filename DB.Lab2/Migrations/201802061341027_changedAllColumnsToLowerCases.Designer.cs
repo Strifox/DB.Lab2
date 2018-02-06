@@ -7,13 +7,13 @@ namespace DB.Lab2.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.2.0-61023")]
-    public sealed partial class revertédearliermigs : IMigrationMetadata
+    public sealed partial class changedAllColumnsToLowerCases : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(revertédearliermigs));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(changedAllColumnsToLowerCases));
         
         string IMigrationMetadata.Id
         {
-            get { return "201802030017361_revertédearliermigs"; }
+            get { return "201802061341027_changedAllColumnsToLowerCases"; }
         }
         
         string IMigrationMetadata.Source

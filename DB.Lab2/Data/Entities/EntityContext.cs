@@ -32,7 +32,7 @@ namespace DB.Lab2
             playerConfig.HasKey(p => p.Id);
       
             playerConfig.Property(p => p.Name)
-                .HasColumnName("Name")
+                .HasColumnName("name")
                 .HasColumnType("nvarchar")
                 .HasMaxLength(50);
             #endregion
@@ -41,11 +41,11 @@ namespace DB.Lab2
             mapConfig.ToTable("Maps");
             mapConfig.HasKey(m => m.Id);
             mapConfig.Property(m => m.MapName)
-                .HasColumnName("Map_Name")
+                .HasColumnName("map_name")
                 .HasColumnType("nvarchar")
                 .HasMaxLength(250);
             mapConfig.Property(m => m.MaxMoves)
-                .HasColumnName("Max_Moves")
+                .HasColumnName("max_moves")
                 .HasColumnType("int");
             #endregion
 
@@ -61,7 +61,7 @@ namespace DB.Lab2
                 .WithMany(p => p.Scores);
 
             scoreConfig.Property(s => s.PlayerScore)
-                .HasColumnName("Player_Score")
+                .HasColumnName("player_score")
                 .HasColumnType("int");
             #endregion
 

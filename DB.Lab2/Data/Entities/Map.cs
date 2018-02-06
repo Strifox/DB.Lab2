@@ -19,12 +19,8 @@ namespace DB.Lab2
 
         [Key]
         public int Id { get; set; }
-
-        [Column("MaxMoves", TypeName = "int")]
         public int MaxMoves { get; set; }
-
-        [Column("MapName", TypeName = "nvarchar")]
-        [MaxLength(50)]
+        [Required]
         public string MapName { get; set; }
         #endregion
         #region Constructors

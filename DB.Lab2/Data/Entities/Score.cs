@@ -25,7 +25,6 @@ namespace DB.Lab2
             Player = player;
             PlayerScore = playerScore;
         }
-
         public Score() { }
     }
 }

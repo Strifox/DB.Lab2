@@ -20,7 +20,6 @@ namespace DB.Lab2
             Console.WriteLine($"{map.MapName} added to database");
             context.SaveChanges();
         }
-
         public static Map IsMapAdded(EntityContext context)  //Checks if map is added before adding a player
         {
             if (context.Maps.Any())
@@ -38,22 +37,11 @@ namespace DB.Lab2
             }
             return map;
         }
-
-
         public static Map ChooseMap(EntityContext context, ref int mapId)
         {
             map = Query.GetMapById(context, mapId);
             return map;
         }
-        //public static Map ChooseMap(EntityContext context, ref int mapId) //Chooses map
-        //{
-        //    if (Query.DoesMapExist(context, mapId))
-        //        Console.WriteLine("Invalid map");
-        //    else
-        //        map = Query.GetMapById(context, mapId);
-
-        //    return map;
-        //}
 
     }
 }

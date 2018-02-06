@@ -52,7 +52,6 @@ namespace DB.Lab2
             }
             return false;
         }
-
         public static bool DoesPlayerExistWithName(EntityContext context, string name)
         {
             var players = from player in context.Players
@@ -65,27 +64,11 @@ namespace DB.Lab2
             }
             return false;
         }
-
-
         #endregion
 
         #region Score
-        //public static void EditPlayerScoreQuery(EntityContext context)
-        //{
-        //    Console.WriteLine("Type your new score");
-        //    var scoreQuery = from score in context.Scores
-        //                     where score.PlayerScore == Int32.Parse(Console.ReadLine())
-        //                     select score;
-        //    foreach (var score in scoreQuery)
-        //    {
-        //        Console.WriteLine("You updates player score to:");
-        //        Console.WriteLine(score);
-        //    }
-        //}
         public static List<Score> GetAllScoresForPlayer(EntityContext context, Player player)
         {
-            // Du skickar in den player du vill kolla upp
-            // Du går igenom alla scores som finns och väljer bara ut dem som har score.playerId == player.Id
             return context.Scores.Where(s => s.Player.Id == player.Id).ToList();
         }
         public static bool DoesPlayerExistInScore(EntityContext context, int playerId)
@@ -266,7 +249,6 @@ namespace DB.Lab2
                                select map).FirstOrDefault();
             return chooseQuery;
         }
-
         public static int ReturnMaxMapMoves(EntityContext context)
         {
             var moves = (from map in context.Maps

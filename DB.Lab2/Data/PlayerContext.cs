@@ -31,7 +31,6 @@ namespace DB.Lab2
                 Console.ReadKey();
             }
         }
-
         public static void AddMovesToPlayer(EntityContext context)
         {
             Map currentMap = MapContext.IsMapAdded(context);
